@@ -8,7 +8,7 @@ using namespace std;
 //                 move <start> <end> <promotion>,
 //                 setup, + <piece> <square>, - <square>,
 //                 = <colour>, done, resign
-// Silently ignores invalid commands. Doesn't check that 0 <= index < MAX_INT_SETS.
+// Silently ignores invalid commands.
 
 int main() { 
   
