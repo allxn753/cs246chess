@@ -1,60 +1,78 @@
 #include <iostream>
 #include <sstream>
+#include <string>
 using namespace std;
 
-// Test harness for IntSet functions. You may assume that all commands entered are valid.
-// Valid commands: n <ind>,  p <ind>, & <ind1> <ind2>,
-//                 | <ind1> <ind2>, = <ind1> <ind2>,
-//                 s <ind1> <ind2>, c <ind1> <elem>,
-//                 a <ind1> <elem>, r <ind1> <elem>,
-//                 q/EOF
+// Test harness for Chess functions. We assume that all commands entered are valid.
+// Valid commands: game <whitePlayer> <blackPlayer>,
+//                 move <start> <end> <promotion>,
+//                 setup, + <piece> <square>, - <square>,
+//                 = <colour>, done, resign
 // Silently ignores invalid commands. Doesn't check that 0 <= index < MAX_INT_SETS.
-// Do not test invalid commands!
 
 int main() { 
   
-  char c;
+  string input;
 
-    while ( cin >> c ) {
-        int lhs, rhs;
- 
-        if ( c == 'q' ) break;
-        
-        switch(c) {
-          case 'n':
-            // Create new IntSet at index lhs after destroying the old.
-            // Read in integers to add to it until hitting non-int using operator>>.
+  while (getline(cin, input)) {
+  
+    istringstream iss(input);
+    string command;
+    iss >> command;
+    
+    if (command == "game") {
+      // starting a new game
+      string whitePlayer, blackPlayer;
+      iss >> whitePlayer >> blackPlayer;
 
-          case 'p':
-            // Print IntSet at lhs.
+      cout << "test" << whitePlayer << blackPlayer << endl;
+    }
 
-          case '&':
-            // Print intersection of lhs and rhs.
+    else if (command == "resign") {
+      // calling resign function to end game
+      break;
+    }
 
+    else if (command == "move") {
+      // move pieces on the board
+      string start, end, promotion;
+      iss >> start >> end >> promotion;
 
-          case '|':
-            // Print union of lhs and rhs.
+      cout << "test" << start << end << promotion << endl;
+    }
+    
+    else if (command == "setup") {
+      cout << "test" << endl;
+    }
 
+    else if (command == "+") {
+      string piece, square;
+      iss >> piece >> square;
 
-          case '=':
-            // Print true if lhs == rhs, false otherwise.
+      cout << "hi" << piece << square << endl;
+    }
 
-          case 's':
-            // Print true if rhs is subset of lhs, false otherwise.
+    else if (command == "-") {
+      string square;
+      iss >> square;
 
+      cout << square << endl;
+    }
 
-          case 'c':
-            // Print true if lhs contains element rhs, false otherwise.
+    else if (command == "=") {
+      string colour;
+      iss >> colour;
 
+      cout << colour << endl;
+    }
 
-          case 'a':
-            // Add elem rhs to set lhs
+    else if (command == "done") {
+      
+      cout << "domnfwwfwef" << endl;
+    }
 
+    else { cout << "Invalid command" << endl; }
 
-          case 'r':
-            // Remove elem rhs from set lhs
+  } // while
 
-            
-        } // switch
-    } // while
 } // main
