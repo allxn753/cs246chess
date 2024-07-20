@@ -10,8 +10,8 @@ using namespace std;
 class Board {
 
     private:
-        vector<Tile> tiles;
-        
+        vector<vector<Tile>> tiles;
+
     public:
 
         class Iterator {
