@@ -13,7 +13,8 @@ class Board {
         vector<vector<Tile>> tiles;
 
     public:
-
+        const int BOARD_DIMENSION = 8;
+        
         class Iterator {
             Board* board;
             size_t currIndex;
