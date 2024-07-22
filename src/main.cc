@@ -3,7 +3,7 @@
 #include <string>
 #include "game.h"
 #include "board.h"
-#include "TextDisplay.h"
+#include "textDisplay.h"
 using namespace std;
 
 // Test harness for Chess functions. We assume that all commands entered are valid.
