@@ -15,7 +15,7 @@ class Tile {
         Tile(int x, int y);
         ~Tile();
         void draw();
-        void addPiece(Piece);
+        void addPiece(Piece* piece);
         void removePiece();
         bool isThreatened();
 };
