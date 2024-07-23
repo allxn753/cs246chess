@@ -26,6 +26,8 @@ class Board {
                 Iterator& operator++();
         };
 
+        Board(bool setup);
+        ~Board();
         void addPiece(Piece, Tile);
         void removePiece(Tile);
         bool validBoard();

@@ -10,6 +10,10 @@ class Tile {
     
     public:
         vector<int> coordinates;
+        Piece* piece;
+        
+        Tile(int x, int y);
+        ~Tile();
         void draw();
         void addPiece(Piece);
         void removePiece();
