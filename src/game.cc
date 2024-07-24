@@ -21,6 +21,7 @@ Game::Game(Board* brd): theBoard{brd}{}
 void Game::addPiece(char type, string pos) {
     vector<int> coord = convertPosition(pos);
     char p = char(tolower(type));
+    
     switch(p){
         case 'r': theBoard = new Rook(theBoard, type, coord[0], coord[1]); break;
         case 'n': theBoard = new Knight(theBoard, type, coord[0], coord[1]); break;

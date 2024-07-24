@@ -2,32 +2,31 @@
 #define BOARD_H
 
 #include <vector>
+#include <string>
 #include "subject.h"
+#include "piece.h"
+
+class Piece;
 
 using namespace std;
 
 class Board : public Subject {
+    protected:
+        Piece* pieces;
+
     public:
         inline static int HEIGHT = 8;
         inline static int WIDTH = 8;
         
-        class Iterator {
-            Board* board;
-            size_t currIndex;
-            Iterator(Board* board, size_t currIndex);
+        explicit Board(Piece* pieces) : pieces{pieces} {};
+        Piece*& boardState() { return pieces; }
+        void display();
 
-            public:
-                bool operator!=(const Iterator& other);
-                Iterator& operator++();
-        };
+        void addPiece(char type, string pos);
+        void removePiece(string pos);
+        Piece* getPiece(int x, int y) const override;
 
-        // Board(bool setup);
-        virtual ~Board() = 0;
-        virtual char pieceAt(int , int ) = 0;
-        // bool validBoard();
-        // bool validMove();
-        Iterator begin() const;
-        Iterator end() const;
+        ~Board();
 };
 
 
