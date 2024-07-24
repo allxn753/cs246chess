@@ -3,6 +3,13 @@
 
 Game::Game(Board* brd): theBoard{brd}{}
 
+vector<int> Game::convertPosition(string pos) {
+    int x = int(pos[0]) - 'a';
+    int y = char(pos[1] - '1');
+    vector<int> v = {x,y};
+    return v;
+}
+
 bool Game::validMove(string pos1, string pos2) {
     gameStates state = WHITE_TURN; // placeholder enum
     vector<int> coord1 = convertPosition(pos1);

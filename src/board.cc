@@ -1,12 +1,5 @@
 #include "board.h"
 
-vector<int> convertPosition(string pos) {
-    int x = int(pos[0]) - 'a';
-    int y = char(pos[1] - '1');
-    vector<int> v = {x,y};
-    return v;
-}
-
 void Board::display() { notifyObservers(); }
 
 void Board::addPiece(char type, string pos) {
