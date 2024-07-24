@@ -1,18 +1,21 @@
 #include "blank.h"
 #include <iostream>
 
-char Blank::pieceAt(int row, int col) {
+Piece* Blank::pieceAt(int row, int col) {
+
     if (row % 2 == 0) {
 
         if (col % 2 == 0) {
-            return ' ';
-        } else { return '_'; }
+            this->type == ' ';
+        } else { this->type == '_'; }
 
     } else {
 
         if (col % 2 == 0) {
-            return '_';
-        } else { return ' '; }
+            this->type == '_';
+        } else { this->type == ' '; }
 
     }
+
+    return this;
 }
