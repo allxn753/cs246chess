@@ -5,12 +5,9 @@
 #include <string>
 
 class Pawn : public Piece {
-    bool hasMoved;
+    bool hasMoved = false;
     public:
-        bool isValidMove(Tile);
-        explicit Pawn(string colour);
-        ~Pawn();
-        void draw();
+        Pawn(Board *, char, int, int);
 };
 
 #endif

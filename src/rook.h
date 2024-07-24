@@ -5,12 +5,9 @@
 #include <string>
 
 class Rook : public Piece {
-    bool hasMoved;
+    bool hasMoved = false;
     public:
-        bool isValidMove(Tile);
-        explicit Rook(string colour);
-        ~Rook();
-        void draw();
+        Rook(Board *, char, int, int);
 };
 
 #endif

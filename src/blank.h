@@ -1,11 +1,13 @@
 #ifndef BLANK_H
 #define BLANK_H
+#include "board.h"
 #include "piece.h"
 #include <iostream>
 
-class Blank: public Piece {
+class Blank: public Board {
  public:
-  char pieceAt(int row, int col) override;
+  char pieceAt(int , int) override;
+
   bool enPassant();
 };
 

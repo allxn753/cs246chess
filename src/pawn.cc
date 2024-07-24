@@ -1,6 +1,3 @@
 #include "pawn.h"
 
-Pawn::Pawn(string colour) {
-    this->colour = colour;
-    this->value = 1;
-}
+Pawn::Pawn(Board * brd, char type, int x, int y): Piece(brd, type, x, y) {};

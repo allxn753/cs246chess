@@ -1,6 +1,3 @@
 #include "knight.h"
 
-Knight::Knight(string colour) {
-    this->colour = colour;
-    this->value = 3;
-}
+Knight::Knight(Board * brd, char type, int x, int y): Piece(brd, type, x, y) {};

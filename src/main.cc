@@ -4,6 +4,7 @@
 #include "game.h"
 #include "board.h"
 #include "textDisplay.h"
+#include "blank.h"
 using namespace std;
 
 // Test harness for Chess functions. We assume that all commands entered are valid.
@@ -15,67 +16,47 @@ using namespace std;
 
 int main() { 
   
-  string input;
+  string command, arg1, arg2;
+  char piece;
+  int x, y;
+  bool setupMode = false;
+  Game* game = new Game(new Blank());
 
-  while (getline(cin, input)) {
-  
-    istringstream iss(input);
-    string command;
-    iss >> command;
-    
+  while (cin >> command) {
     if (command == "game") {
       // starting a new game
-      string whitePlayer, blackPlayer;
-      iss >> whitePlayer >> blackPlayer;
-
-      cout << "test" << whitePlayer << blackPlayer << endl;
+      cin >> arg1 >> arg2; // white-player black-player
+      cout << "test" << arg1 << arg2 << endl;
     }
 
     else if (command == "resign") {
       // calling resign function to end game
+      cout << "resign" << endl;
       break;
     }
 
     else if (command == "move") {
       // move pieces on the board
-      string start, end, promotion;
-      iss >> start >> end >> promotion;
-
-      cout << "test" << start << end << promotion << endl;
+      cin >> arg1 >> arg2 >> piece; // start end promotion (e7 e8 Q)
     }
     
     else if (command == "setup") {
-      cout << "test" << endl;
-    }
-
-    else if (command == "+") {
-      string piece, square;
-      iss >> piece >> square;
-
-      cout << "hi" << piece << square << endl;
-    }
-
-    else if (command == "-") {
-      string square;
-      iss >> square;
-
-      cout << square << endl;
-    }
-
-    else if (command == "=") {
-      string colour;
-      iss >> colour;
-
-      cout << colour << endl;
-    }
-
-    else if (command == "done") {
-      
-      cout << "domnfwwfwef" << endl;
-    }
-
+      while (cin >> command) {
+        if (command == "+") {
+          cin >> piece >> arg2; // piece end (K e1)
+          game->addPiece(piece, arg2);
+          game->display();
+        } else if (command == "-") {
+          cin >> arg1; // end (e1)
+        } else if (command == "=") {
+          cin >> arg1; // colour (black)
+        } else if (command == "done") {
+          break;
+        } else { cout << "Invalid command" << endl; }
+      }
+    } // setup mode
     else { cout << "Invalid command" << endl; }
 
   } // while
-
+  // output score!!
 } // main

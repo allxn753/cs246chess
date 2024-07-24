@@ -5,12 +5,9 @@
 #include <string>
 
 class King : public Piece {
-    bool hasMoved;
+    bool hasMoved = false;
     public:
-        bool isValidMove(Tile);
-        explicit King(string colour);
-        ~King();
-        void draw();
+        King(Board *, char, int, int);
 };
 
 #endif

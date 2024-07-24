@@ -6,10 +6,7 @@
 
 class Bishop : public Piece {
     public:
-        bool isValidMove(Tile);
-        explicit Bishop(string colour);
-        ~Bishop();
-        void draw();
+        Bishop(Board *, char, int, int);
 };
 
 #endif

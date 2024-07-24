@@ -5,11 +5,9 @@
 #include <string>
 
 class Knight : public Piece {
+    bool hasMoved = false;
     public:
-        bool isValidMove(Tile);
-        explicit Knight(string colour);
-        ~Knight();
-        void draw();
+        Knight(Board *, char, int, int);
 };
 
 #endif

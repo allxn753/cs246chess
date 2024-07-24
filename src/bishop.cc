@@ -1,6 +1,3 @@
 #include "bishop.h"
 
-Bishop::Bishop(string colour) {
-    this->colour = colour;
-    this->value = 3;
-}
+Bishop::Bishop(Board * brd, char type, int x, int y): Piece(brd, type, x, y) {};

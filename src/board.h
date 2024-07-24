@@ -2,17 +2,13 @@
 #define BOARD_H
 
 #include <vector>
-#include "piece.h"
 
 using namespace std;
 
 class Board {
-
-    private:
-        vector<vector<Tile>> tiles;
-
     public:
-        const int BOARD_DIMENSION = 8;
+        inline static int HEIGHT = 8;
+        inline static int WIDTH = 8;
         
         class Iterator {
             Board* board;
@@ -21,17 +17,17 @@ class Board {
 
             public:
                 bool operator!=(const Iterator& other);
-                Tile& operator*() const;
                 Iterator& operator++();
         };
 
-        Board(bool setup);
-        ~Board();
-        void addPiece(Piece, Tile);
-        void removePiece(Tile);
-        bool validBoard();
+        // Board(bool setup);
+        virtual ~Board() = 0;
+        virtual char pieceAt(int , int ) = 0;
+        // bool validBoard();
+        // bool validMove();
         Iterator begin() const;
         Iterator end() const;
 };
+
 
 #endif

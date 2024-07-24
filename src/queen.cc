@@ -1,6 +1,3 @@
 #include "queen.h"
 
-Queen::Queen(string colour) {
-    this->colour = colour;
-    this->value = 9;
-}
+Queen::Queen(Board * brd, char type, int x, int y): Piece(brd, type, x, y) {};

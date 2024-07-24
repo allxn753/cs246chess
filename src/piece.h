@@ -3,18 +3,21 @@
 
 #include <iostream>
 #include <string>
+#include "board.h"
+#include "blank.h"
 
 using namespace std;
 
-class Piece {
-    
-    public:
-        virtual ~Piece();
-
+class Piece: public Board { // Piece is a decorator class here
+    protected:
+        Board * component;
+        char type;
         int value;
-        string colour;
-        virtual char pieceAt(int row, int col);
-        virtual bool isValidMove(Tile);
+        int x, y;
+    public:
+        Piece(Board *, char, int, int);
+        virtual char pieceAt(int x, int y);
+        virtual ~Piece() = 0;
 };
 
 #endif
