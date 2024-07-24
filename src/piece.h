@@ -5,10 +5,11 @@
 #include <string>
 #include "board.h"
 #include "blank.h"
+#include "decorator.h"
 
 using namespace std;
 
-class Piece: public Board { // Piece is a decorator class here
+class Piece { 
     protected:
         Board * component;
         char type;
