@@ -16,9 +16,10 @@
 
 class Piece;
 
+
 using namespace std;
 
-class Board : public Subject, public Game {
+class Board : public Subject {
     protected:
         Piece* pieces;
 

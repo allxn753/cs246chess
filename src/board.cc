@@ -1,4 +1,5 @@
 #include "board.h"
+#include "helpers.h"
 
 void Board::display() { notifyObservers(); }
 
