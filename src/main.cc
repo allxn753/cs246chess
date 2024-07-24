@@ -3,8 +3,16 @@
 #include <string>
 #include "game.h"
 #include "board.h"
+#include "piece.h"
 #include "textDisplay.h"
 #include "blank.h"
+#include "pawn.h"
+#include "rook.h"
+#include "knight.h"
+#include "bishop.h"
+#include "queen.h"
+#include "king.h"
+
 using namespace std;
 
 // Test harness for Chess functions. We assume that all commands entered are valid.
@@ -19,8 +27,11 @@ int main() {
   string command, arg1, arg2;
   char piece;
   int x, y;
-  bool setupMode = false;
-  Game* game = new Game(new Blank());
+
+  Piece* pieces = new Blank;
+  TextDisplay* textDisplay;
+
+  Board board{pieces};
 
   while (cin >> command) {
     if (command == "game") {

@@ -26,6 +26,7 @@ void Board::addPiece(char type, string pos) {
 
 void Board::removePiece(string pos) {
     vector<int> coord = convertPosition(pos);
+    delete getPiece(coord[0], coord[1]);
 }
 
 Piece* Board::getPiece(int x, int y) const {
