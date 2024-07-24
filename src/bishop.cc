@@ -1,3 +1,11 @@
 #include "bishop.h"
 
-Bishop::Bishop(Board * brd, char type, int x, int y): Piece(brd, type, x, y) {};
+Piece* Bishop::pieceAt(int row, int col) {
+    if (row == y && col == x) return this;
+    else return piece->pieceAt(row, col);
+}
+
+char Bishop::getChar() {
+    if (colour == "white") return 'b';
+    else return 'B';
+}

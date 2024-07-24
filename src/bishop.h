@@ -5,7 +5,8 @@
 
 class Bishop : public Decorator {
     public:
-        Bishop(Board *, char, int, int);
+        Piece* pieceAt(int row, int col);
+        char getChar();
 };
 
 #endif

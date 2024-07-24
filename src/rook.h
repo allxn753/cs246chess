@@ -1,13 +1,12 @@
 #ifndef ROOK_H
 #define ROOK_H
 
-#include "piece.h"
-#include <string>
+#include "decorator.h"
 
-class Rook : public Piece {
-    bool hasMoved = false;
+class Rook : public Decorator {
     public:
-        Rook(Board *, char, int, int);
+        Piece* pieceAt(int row, int col);
+        char getChar();
 };
 
 #endif

@@ -1,3 +1,11 @@
 #include "queen.h"
 
-Queen::Queen(Board * brd, char type, int x, int y): Piece(brd, type, x, y) {};
+Piece* Queen::pieceAt(int row, int col) {
+    if (row == y && col == x) return this;
+    else return piece->pieceAt(row, col);
+}
+
+char Queen::getChar() {
+    if (colour == "white") return 'q';
+    else return 'Q';
+}

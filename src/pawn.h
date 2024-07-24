@@ -2,12 +2,11 @@
 #define PAWN_H
 
 #include "decorator.h"
-#include <string>
 
 class Pawn : public Decorator {
-    bool hasMoved = false;
     public:
-        Pawn(Board *, char, int, int);
+        Piece* pieceAt(int row, int col);
+        char getChar();
 };
 
 #endif

@@ -2,12 +2,11 @@
 #define KING_H
 
 #include "decorator.h"
-#include <string>
 
 class King : public Decorator {
-    bool hasMoved = false;
     public:
-        King(Board *, char, int, int);
+        Piece* pieceAt(int row, int col);
+        char getChar();
 };
 
 #endif

@@ -1,13 +1,12 @@
 #ifndef QUEEN_H
 #define QUEEN_H
 
-#include "piece.h"
-#include <string>
+#include "decorator.h"
 
-class Queen : public Piece {
-    bool hasMoved = false;
+class Queen : public Decorator {
     public:
-        Queen(Board *, char, int, int);
+        Piece* pieceAt(int row, int col);
+        char getChar();
 };
 
 #endif
