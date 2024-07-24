@@ -13,4 +13,6 @@ char Bishop::getChar() {
     else return toupper(type);
 }
 
-void Bishop::setCoordinates(int x, int y) {this->x = x; this->y = y;} ;
+void Bishop::setCoordinates(int x, int y) {this->x = x; this->y = y;}
+
+bool Bishop::getHasMoved() {return hasMoved;}

@@ -13,4 +13,6 @@ char Queen::getChar() {
     else return toupper(type);
 }
 
-void Queen::setCoordinates(int x, int y) {this->x = x; this->y = y;} ;
+void Queen::setCoordinates(int x, int y) {this->x = x; this->y = y;}
+
+bool Queen::getHasMoved() {return hasMoved;}

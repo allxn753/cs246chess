@@ -1,5 +1,4 @@
 #include "board.h"
-using namespace std;
 
 vector<int> convertPosition(string pos) {
     int x = int(pos[0]) - 'a';
@@ -27,7 +26,7 @@ void Board::addPiece(char type, string pos) {
 
 void Board::removePiece(string pos) {
     vector<int> coord = convertPosition(pos);
-    delete getPiece(coord[0], coord[1]);
+    delete pieces->pieceAt(coord[0], coord[1]);
 }
 
 Piece* Board::getPiece(int x, int y) const {
@@ -36,6 +35,11 @@ Piece* Board::getPiece(int x, int y) const {
 
 char Board::getChar(int x, int y) const {
     return pieces->pieceAt(x, y)->getChar();
+}
+
+void Board::print(string pos) {
+    vector<int> coord = convertPosition(pos);
+    std::cout << pieces->pieceAt(coord[0], coord[1])->getChar() << std::endl << std::endl;
 }
 
 Board::~Board(){ delete pieces; }

@@ -13,4 +13,6 @@ char King::getChar() {
     else return toupper(type);
 }
 
-void King::setCoordinates(int x, int y) {this->x = x; this->y = y; hasMoved = true;} ;
+void King::setCoordinates(int x, int y) {this->x = x; this->y = y; hasMoved = true;} 
+
+bool King::getHasMoved() {return hasMoved;}

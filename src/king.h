@@ -16,6 +16,7 @@ class King : public Decorator {
         Piece* pieceAt(int x, int y) override;
         char getChar() override;
         void setCoordinates(int x, int y);
+        bool getHasMoved() override;
 };
 
 #endif

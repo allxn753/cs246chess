@@ -62,10 +62,15 @@ int main() {
         } else if (command == "-") {
           cin >> arg1; // end (e1)
           board.removePiece(arg1);
-          board.display();
+          //board.display();
         } else if (command == "=") {
           cin >> arg1; // colour (black)
-        } else if (command == "done") {
+        } else if (command == "p") {
+          cin >> arg1;
+          board.print(arg1);
+        }
+        
+        else if (command == "done") {
           break;
         } else { cout << "Invalid command" << endl; }
       }

@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
 #include "subject.h"
 #include "piece.h"
 #include "pawn.h"
@@ -33,6 +34,7 @@ class Board : public Subject {
         void removePiece(string pos);
         Piece* getPiece(int x, int y) const override;
         char getChar(int x, int y) const override;
+        void print(string pos);
 
         ~Board();
 };

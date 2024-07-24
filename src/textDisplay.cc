@@ -6,6 +6,8 @@ using namespace std;
 TextDisplay::TextDisplay(Subject* subject) : subject{subject} { subject->attach(this); }
 
 void TextDisplay::notify() {
+    cout << endl;
+    
     for (int i = 0; i < 8; i++) {
         cout << i + 1 << " ";
 

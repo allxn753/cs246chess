@@ -9,12 +9,14 @@ class Queen : public Decorator {
         unsigned int val;
         string colour;
         char type = 'q';
+        bool hasMoved = false;
 
     public:
         Queen(Piece *piece, int x, int y, unsigned int val, string colour);
         Piece* pieceAt(int x, int y) override;
         char getChar() override;
         void setCoordinates(int x, int y);
+        bool getHasMoved() override;
 };
 
 #endif
