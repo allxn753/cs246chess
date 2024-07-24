@@ -7,7 +7,7 @@ class Game {
     Board* theBoard;
 
     public:
-        enum gameState {SETUP, WHITE_TURN, BLACK_TURN, GAME_END};
+        enum gameStates {SETUP, WHITE_TURN, BLACK_TURN, GAME_END};
         Game(Board *);
         Board* getBoard() { return theBoard; };
         bool validMove(string pos1, string pos2);

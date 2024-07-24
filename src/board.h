@@ -11,6 +11,7 @@
 #include "bishop.h"
 #include "king.h"
 #include "queen.h"
+#include "game.h"
 
 class Piece;
 
