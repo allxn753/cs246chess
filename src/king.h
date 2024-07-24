@@ -1,10 +1,10 @@
 #ifndef KING_H
 #define KING_H
 
-#include "piece.h"
+#include "decorator.h"
 #include <string>
 
-class King : public Piece {
+class King : public Decorator {
     bool hasMoved = false;
     public:
         King(Board *, char, int, int);

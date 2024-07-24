@@ -1,10 +1,9 @@
 #ifndef BISHOP_H
 #define BISHOP_H
 
-#include "piece.h"
-#include <string>
+#include "decorator.h"
 
-class Bishop : public Piece {
+class Bishop : public Decorator {
     public:
         Bishop(Board *, char, int, int);
 };

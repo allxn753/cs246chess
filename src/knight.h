@@ -1,10 +1,10 @@
 #ifndef KNIGHT_H
 #define KNIGHT_H
 
-#include "piece.h"
+#include "decorator.h"
 #include <string>
 
-class Knight : public Piece {
+class Knight : public Decorator {
     bool hasMoved = false;
     public:
         Knight(Board *, char, int, int);
