@@ -11,7 +11,7 @@ void Board::display() { notifyObservers(); }
 
 void Board::addPiece(char type, string pos) {
     vector<int> coord = convertPosition(pos);
-    char p = char(tolower(type));
+    char p = tolower(type);
 
     switch(p){
         case 'r': pieces = new Rook(pieces, coord[0], coord[1], 5, isupper(type) ? "black" : "white"); break;
@@ -21,11 +21,11 @@ void Board::addPiece(char type, string pos) {
         case 'k': pieces = new King(pieces, coord[0], coord[1], 100, isupper(type) ? "black" : "white"); break;
         case 'p': pieces = new Pawn(pieces, coord[0], coord[1], 1, isupper(type) ? "black" : "white"); break;
     }
-    
+
 }
 
 void Board::removePiece(string pos) {
-
+    vector<int> coord = convertPosition(pos);
 }
 
 Piece* Board::getPiece(int x, int y) const {

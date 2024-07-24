@@ -4,9 +4,17 @@
 #include "decorator.h"
 
 class Knight : public Decorator {
+    protected:
+        int x, y;
+        unsigned int val;
+        string colour;
+        char type = 'n';
+
     public:
-        Piece* pieceAt(int row, int col);
-        char getChar();
+        Knight(Piece *piece, int x, int y, unsigned int val, string colour);
+        Piece* pieceAt(int x, int y) override;
+        char getChar() override;
+        void setCoordinates(int x, int y);
 };
 
 #endif
