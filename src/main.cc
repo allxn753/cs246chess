@@ -32,6 +32,8 @@ int main() {
   TextDisplay* textDisplay;
 
   Board board{pieces};
+  textDisplay = new TextDisplay(&board);
+  Game game{&board};
 
   while (cin >> command) {
     if (command == "game") {
@@ -55,10 +57,12 @@ int main() {
       while (cin >> command) {
         if (command == "+") {
           cin >> piece >> arg2; // piece end (K e1)
-          game->addPiece(piece, arg2);
-          game->display();
+          board.addPiece(piece, arg2);
+          board.display();
         } else if (command == "-") {
           cin >> arg1; // end (e1)
+          board.removePiece(arg1);
+          board.display();
         } else if (command == "=") {
           cin >> arg1; // colour (black)
         } else if (command == "done") {
@@ -70,4 +74,5 @@ int main() {
 
   } // while
   // output score!!
+  board.detach(textDisplay);
 } // main

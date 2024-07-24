@@ -9,7 +9,7 @@ using namespace std;
 class Piece { 
     public:
         virtual Piece* pieceAt(int x, int y) = 0;
-        virtual char getChar();
+        virtual char getChar() = 0;
         virtual ~Piece();
 };
 

@@ -6,9 +6,9 @@
 #include <iostream>
 
 class TextDisplay : public Observer {
-    Subject& subject;
+    Subject* subject;
 public:
-    TextDisplay(Subject& subject);
+    TextDisplay(Subject* subject);
     void notify() override;
 };
 
