@@ -15,5 +15,5 @@ void TextDisplay::notify() {
         cout << endl;
     }
 
-    cout << "  abcdefgh" << endl;
+    cout << "  abcdefgh" << endl << endl;
 }

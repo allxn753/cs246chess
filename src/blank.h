@@ -5,10 +5,12 @@
 #include <iostream>
 
 class Blank: public Board {
+  bool enPassant;
+ 
  public:
   char pieceAt(int , int) override;
-
-  bool enPassant();
+  void setEnPassant(bool tf) { enPassant = tf; };
+  bool getEnPassant() { return enPassant; };
 };
 
 #endif
