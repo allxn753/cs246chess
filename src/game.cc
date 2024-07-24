@@ -82,10 +82,11 @@ bool Game::validMove(string pos1, string pos2) {
 
             if (!theBoard->getPiece(coord1[0], coord1[1])->getHasMoved()) {
                 if (dY != 1 * yMult || dY != 2 * yMult) return false;
-            }
-            if (dY != 1 * yMult) return false;
+            } else if (dY != 1 * yMult) return false;
+            if (abs(dX > 1)) return false;
+            if (dX != 0 && abs(dY) != 1) return false;
+            if (isPathObstructed(coord1, dX, dY)) return false;
 
-            if (dY != 1 * yMult) return false;
             if (dX == 0 && theBoard->getPiece(coord2[0], coord2[1])->getChar() != ' ' &&
                 theBoard->getPiece(coord2[0], coord2[1])->getChar() != '_') return false;
             if (dX != 0 && (theBoard->getPiece(coord2[0], coord2[1])->getChar() == ' ' ||
