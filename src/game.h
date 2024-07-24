@@ -3,6 +3,8 @@
 #include <string>
 #include "board.h"
 
+class Board;
+
 class Game {
     Board* theBoard;
 

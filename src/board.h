@@ -32,6 +32,7 @@ class Board : public Subject {
         void addPiece(char type, string pos);
         void removePiece(string pos);
         Piece* getPiece(int x, int y) const override;
+        char getChar(int x, int y) const override;
 
         ~Board();
 };

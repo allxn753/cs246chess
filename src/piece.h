@@ -9,8 +9,8 @@ using namespace std;
 class Piece { 
     public:
         virtual Piece* pieceAt(int x, int y) = 0;
-        virtual char getChar();
-        virtual bool getHasMoved();
+        virtual char getChar() = 0;
+        virtual bool getHasMoved() = 0;
         virtual ~Piece();
 };
 

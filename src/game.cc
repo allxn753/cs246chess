@@ -1,13 +1,6 @@
 #include "game.h"
 #include <vector>
 
-vector<int> convertPosition(string pos) {
-    int x = int(pos[1] - '1' + 1);
-    int y = char(pos[0]) - 'a' + 1;
-    vector<int> v = {x,y};
-    return v;
-}
-
 Game::Game(Board* brd): theBoard{brd}{}
 
 bool Game::validMove(string pos1, string pos2) {
