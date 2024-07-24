@@ -13,4 +13,6 @@ char Knight::getChar() {
     else return toupper(type);
 }
 
+bool Knight::getHasMoved() { return hasMoved; }
+
 void Knight::setCoordinates(int x, int y) {this->x = x; this->y = y;} ;

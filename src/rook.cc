@@ -13,4 +13,6 @@ char Rook::getChar() {
     else return toupper(type);
 }
 
+bool Rook::getHasMoved() { return hasMoved; }
+
 void Rook::setCoordinates(int x, int y) {this->x = x; this->y = y; hasMoved = true;} ;
