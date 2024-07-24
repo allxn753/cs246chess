@@ -10,6 +10,7 @@ class Piece {
     public:
         virtual Piece* pieceAt(int x, int y) = 0;
         virtual char getChar();
+        virtual bool getHasMoved();
         virtual ~Piece();
 };
 

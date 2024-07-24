@@ -13,4 +13,6 @@ char Pawn::getChar() {
     else return toupper(type);
 }
 
+bool Pawn::getHasMoved() { return hasMoved; }
+
 void Pawn::setCoordinates(int x, int y) {this->x = x; this->y = y; hasMoved = true;} ;

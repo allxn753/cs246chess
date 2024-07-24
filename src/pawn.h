@@ -15,6 +15,7 @@ class Pawn : public Decorator {
         Pawn(Piece *piece, int x, int y, unsigned int val, string colour);
         Piece* pieceAt(int x, int y) override;
         char getChar() override;
+        bool getHasMoved() override;
         void setCoordinates(int x, int y);
 };
 
