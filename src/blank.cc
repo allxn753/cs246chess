@@ -11,3 +11,5 @@ Piece* Blank::pieceAt(int row, int col) {
 char Blank::getChar() {
     return type;
 }
+
+bool Blank::getHasMoved() {return false;}

@@ -1,4 +1,5 @@
 #include "game.h"
+#include "helpers.h"
 
 Game::Game(Board* brd): theBoard{brd}{}
 

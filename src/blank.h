@@ -12,6 +12,7 @@ class Blank: public Piece {
     char getChar() override;
     void setEnPassant(bool tf) { enPassant = tf; };
     bool getEnPassant() { return enPassant; };
+    bool getHasMoved() override;
 };
 
 #endif
