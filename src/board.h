@@ -2,10 +2,11 @@
 #define BOARD_H
 
 #include <vector>
+#include "subject.h"
 
 using namespace std;
 
-class Board {
+class Board : public Subject {
     public:
         inline static int HEIGHT = 8;
         inline static int WIDTH = 8;
