@@ -1,12 +1,15 @@
 #ifndef GAME_H
 #define GAME_H
+
+#include <vector>
 #include <string>
-#include "board.h"
+
+using namespace std;
 
 class Board;
 
 class Game {
-    Board* theBoard;
+    Board* theBoard = nullptr;
 
     public:
         enum gameStates {SETUP, WHITE_TURN, BLACK_TURN, GAME_END};
