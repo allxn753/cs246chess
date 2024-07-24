@@ -2,7 +2,6 @@
 #define GAME_H
 #include <string>
 #include "board.h"
-#include "piece.h"
 
 class Game {
     Board* theBoard;
@@ -10,9 +9,8 @@ class Game {
     public:
         enum gameState {SETUP, WHITE_TURN, BLACK_TURN, GAME_END};
         Game(Board *);
-        void addPiece(char, string);
-        void removePiece(string);
-        void display();
+        bool validMove(string pos1, string pos2);
+        bool isThreatened(string pos);
 };
 
 #endif
