@@ -2,7 +2,6 @@
 #define BOARD_H
 
 #include <vector>
-#include "tile.h"
 #include "piece.h"
 
 using namespace std;
