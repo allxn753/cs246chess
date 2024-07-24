@@ -29,6 +29,8 @@ bool Game::validMove(string pos1, string pos2) {
         if (isupper(activePiece) == isupper(destination)) return false; // false if there are two of the same colour pieces
     }
 
+    int dX;
+    int dY;
     switch (tolower(activePiece)) {
         case 'k':
             if (coord2[0] > coord1[0] + 1 || coord2[0] < coord1[0] - 1 ||
@@ -37,8 +39,8 @@ bool Game::validMove(string pos1, string pos2) {
             return true;
 
         case 'q':
-            int dX = coord2[0] - coord1[0];
-            int dY = coord2[1] - coord1[1];
+            dX = coord2[0] - coord1[0];
+            dY = coord2[1] - coord1[1];
 
             if (dX != 0 && dY != 0) {
                 if (abs(dX) != abs(dY)) return false;
@@ -49,8 +51,8 @@ bool Game::validMove(string pos1, string pos2) {
             return true;
         
         case 'r':
-            int dX = coord2[0] - coord1[0];
-            int dY = coord2[1] - coord1[1];
+            dX = coord2[0] - coord1[0];
+            dY = coord2[1] - coord1[1];
 
             if (dX != 0 && dY != 0) return false;
 
@@ -59,8 +61,8 @@ bool Game::validMove(string pos1, string pos2) {
             return true;
 
         case 'b':
-            int dX = coord2[0] - coord1[0];
-            int dY = coord2[1] - coord1[1];
+            dX = coord2[0] - coord1[0];
+            dY = coord2[1] - coord1[1];
 
             if (abs(dX) != abs(dY)) return false;
 
@@ -69,16 +71,16 @@ bool Game::validMove(string pos1, string pos2) {
             return true;
 
         case 'n':
-            int dX = coord2[0] - coord1[0];
-            int dY = coord2[1] - coord1[1];
+            dX = coord2[0] - coord1[0];
+            dY = coord2[1] - coord1[1];
 
             if ((abs(dX) == 2 && abs(dY) == 1) || (abs(dX) == 1 && abs(dY) == 2)) return true;
 
             return false;
 
         case 'p':
-            int dX = coord2[0] - coord1[0];
-            int dY = coord2[1] - coord1[1];
+            dX = coord2[0] - coord1[0];
+            dY = coord2[1] - coord1[1];
             int yMult;
 
             if (isupper(activePiece)) yMult = 1;
