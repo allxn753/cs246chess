@@ -9,6 +9,7 @@ class Blank: public Piece {
     char type;
   public:
     Piece* pieceAt(int x, int y) override;
+    Piece* pieceAt(string) override;
     char getChar() override;
     void setEnPassant(bool tf) { enPassant = tf; };
     bool getEnPassant() { return enPassant; };

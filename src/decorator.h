@@ -20,7 +20,8 @@ class Decorator: public Piece {
         int getY() {return y;}
         virtual char getChar() override;
         virtual Piece* pieceAt(int, int) override;
-        virtual void setCoordinates(int, int) {this->x = x; this->y = y;}
+        virtual Piece* pieceAt(string) override;
+        virtual void move(int, int) {this->x = x; this->y = y;}
         virtual bool getHasMoved() {return hasMoved;}
         
 };

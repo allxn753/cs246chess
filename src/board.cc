@@ -44,8 +44,13 @@ void Board::removePiece(string pos) {
     // delete pieces->pieceAt(coord[0], coord[1]);
 }
 
-Piece* Board::getPiece(int x, int y) const {
+Piece* Board::getPiece(int x, int y) {
     return pieces->pieceAt(x, y);
+}
+
+Piece* Board::getPiece(string pos) {
+    vector<int> coord = convertPosition(pos);
+    return pieces->pieceAt(coord[0], coord[1]);
 }
 
 char Board::getChar(int x, int y) const {

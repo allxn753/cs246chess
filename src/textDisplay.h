@@ -3,12 +3,13 @@
 
 #include "observer.h"
 #include "subject.h"
+#include "board.h"
 #include <iostream>
 
 class TextDisplay : public Observer {
-    Subject* subject;
+    Board* subject;
 public:
-    TextDisplay(Subject* subject);
+    TextDisplay(Board* subject);
     void notify() override;
 };
 

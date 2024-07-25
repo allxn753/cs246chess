@@ -41,7 +41,6 @@ int main() {
       cin >> arg1 >> arg2; // white-player black-player
       game.reset();
       board.display();
-      cout << "test" << arg1 << arg2 << endl;
     }
 
     else if (command == "resign") {
@@ -53,9 +52,10 @@ int main() {
     else if (command == "move") {
       // move pieces on the board
       cin >> arg1 >> arg2; // >> piece; // start end promotion (e7 e8 Q)
-      cout << game.validMove(arg1, arg2) << endl;
-    }
-    
+      if(game.validMove(arg1, arg2)) {
+        board.removePiece(arg2);
+      } else continue;
+    }    
     else if (command == "setup") {
       while (cin >> command) {
         if (command == "+") {
