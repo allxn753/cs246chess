@@ -22,7 +22,7 @@ bool Game::validMove(string pos1, string pos2) {
     cerr << "D" << endl;
     if (state == BLACK_TURN && isupper(activePiece)) return false;
     cerr << "E" << endl;
-    if (destination != ' ' || destination != '_') {
+    if (destination != ' ' && destination != '_') {
         if (isupper(activePiece) == isupper(destination)) return false; // false if there are two of the same colour pieces
     }
     cerr << "F" << endl;
@@ -66,7 +66,7 @@ bool Game::validMove(string pos1, string pos2) {
             if (isupper(activePiece)) yMult = 1;
             else yMult = -1;
 
-            if (!theBoard->getPiece(coord1[0], coord1[1])->getHasMoved()) {
+            if (theBoard->getPiece(coord1[0], coord1[1])->getHasMoved()) {
                 if (dY != 1 * yMult || dY != 2 * yMult) return false;
             } else if (dY != 1 * yMult) return false;
             if (abs(dX > 1)) return false;
