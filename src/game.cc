@@ -116,6 +116,11 @@ bool Game::isThreatened(string pos) {
     
 }
 
+void Game::nextTurn() {
+    if (state == WHITE_TURN) state = BLACK_TURN;
+    else state = WHITE_TURN;
+}
+
 
 
 void Game::reset() {

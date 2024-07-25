@@ -21,7 +21,8 @@ class Decorator: public Piece {
         virtual char getChar() override;
         virtual Piece* pieceAt(int, int) override;
         virtual Piece* pieceAt(string) override;
-        virtual void move(int, int) {this->x = x; this->y = y;}
+        virtual void move(int x, int y) override {this->x = x; this->y = y;}
+        virtual void move(string) override;
         virtual bool getHasMoved() {return hasMoved;}
         
 };

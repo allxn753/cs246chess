@@ -13,6 +13,7 @@ class Piece {
         virtual char getChar() = 0;
         virtual bool getHasMoved() = 0;
         virtual void move(int, int){};
+        virtual void move(string){};
         virtual ~Piece();
 };
 

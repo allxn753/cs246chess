@@ -21,3 +21,8 @@ char Decorator::getChar() {
     if (colour == "white") return type;
     else return toupper(type);
 }
+
+void Decorator::move(string pos) {
+    vector<int> coord = convertPosition(pos);
+    move(coord[0], coord[1]);
+}

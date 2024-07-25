@@ -53,7 +53,12 @@ int main() {
       // move pieces on the board
       cin >> arg1 >> arg2; // >> piece; // start end promotion (e7 e8 Q)
       if(game.validMove(arg1, arg2)) {
+        cerr << "Moving Piece" << endl;
+        Piece* p = board.getPiece(arg1);
         board.removePiece(arg2);
+        p->move(arg2);
+        game.nextTurn();
+        board.display();
       } else continue;
     }    
     else if (command == "setup") {
