@@ -34,7 +34,9 @@ bool Game::validMove(string pos1, string pos2) {
             if (!theBoard->getPiece(coord1[0], coord1[1])->getHasMoved()) {
                 if (dY == 0) {
                     if (dX == 2) {
-                        if (!theBoard->getPiece(coord1[0], 7)->getHasMoved() && theBoard->getPiece(coord1[0], 7)->getChar() == 'r')
+                        if (!theBoard->getPiece(coord1[0], 7)->getHasMoved() && theBoard->getPiece(coord1[0], 7)->getChar() == 'r') return true;
+                    } else if (dX == -2) {
+                        if (!theBoard->getPiece(coord1[0], 0)->getHasMoved() && theBoard->getPiece(coord1[0], 0)->getChar() == 'r') return true;
                     }
                 }
             }
