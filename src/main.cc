@@ -39,6 +39,8 @@ int main() {
     if (command == "game") {
       // starting a new game
       cin >> arg1 >> arg2; // white-player black-player
+      game.reset();
+      board.display();
       cout << "test" << arg1 << arg2 << endl;
     }
 
@@ -76,6 +78,10 @@ int main() {
         } else { cout << "Invalid command" << endl; }
       }
     } // setup mode
+    else if (command == "wipe") {
+      game.getBoard()->wipe();
+      board.display();
+    }
     else { cout << "Invalid command" << endl; }
 
   } // while

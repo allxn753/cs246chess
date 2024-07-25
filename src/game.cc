@@ -3,9 +3,46 @@
 
 Game::Game(Board* brd): theBoard{brd}{}
 
+void Game::reset() {
+    state = WHITE_TURN;
+    theBoard->wipe();
+    theBoard->addPiece('R', "a1");
+    theBoard->addPiece('N', "b1");
+    theBoard->addPiece('B', "c1");
+    theBoard->addPiece('Q', "d1");
+    theBoard->addPiece('K', "e1");
+    theBoard->addPiece('B', "f1");
+    theBoard->addPiece('N', "g1");
+    theBoard->addPiece('R', "h1");
+    theBoard->addPiece('P', "a2");
+    theBoard->addPiece('P', "b2");
+    theBoard->addPiece('P', "c2");
+    theBoard->addPiece('P', "d2");
+    theBoard->addPiece('P', "e2");
+    theBoard->addPiece('P', "f2");
+    theBoard->addPiece('P', "g2");
+    theBoard->addPiece('P', "h2");
+    theBoard->addPiece('r', "a8");
+    theBoard->addPiece('n', "b8");
+    theBoard->addPiece('b', "c8");
+    theBoard->addPiece('q', "d8");
+    theBoard->addPiece('k', "e8");
+    theBoard->addPiece('b', "f8");
+    theBoard->addPiece('n', "g8");
+    theBoard->addPiece('r', "h8");
+    theBoard->addPiece('p', "a7");
+    theBoard->addPiece('p', "b7");
+    theBoard->addPiece('p', "c7");
+    theBoard->addPiece('p', "d7");
+    theBoard->addPiece('p', "e7");
+    theBoard->addPiece('p', "f7");
+    theBoard->addPiece('p', "g7");
+    theBoard->addPiece('p', "h7");
+}
+
 
 bool Game::validMove(string pos1, string pos2) {
-    gameStates state = WHITE_TURN; // placeholder enum
+    gameState state = WHITE_TURN; // placeholder enum
     vector<int> coord1 = convertPosition(pos1);
     vector<int> coord2 = convertPosition(pos2);
 

@@ -1,5 +1,6 @@
 #include "board.h"
 #include "helpers.h"
+#include "blank.h"
 
 void Board::display() { notifyObservers(); }
 
@@ -57,3 +58,10 @@ void Board::print(string pos) {
 }
 
 Board::~Board(){ delete pieces; }
+
+void Board::wipe() {
+    delete pieces;
+    pieces = new Blank{};
+    numPieces = 0;
+    arr.clear();
+}

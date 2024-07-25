@@ -8,13 +8,16 @@
 using namespace std;
 
 class Game {
-    Board* theBoard = nullptr;
-
     public:
-        enum gameStates {SETUP, WHITE_TURN, BLACK_TURN, GAME_END};
+        enum gameState {SETUP, WHITE_TURN, BLACK_TURN, GAME_END};
+    private:
+        Board* theBoard;
+        gameState state;
+    public:        
         Game();
         Game(Board *);
         Board* getBoard() { return theBoard; };
+        void reset();
         bool validMove(string pos1, string pos2);
         bool isPathObstructed(vector<int> coord1, int dX, int dY);
         bool isThreatened(string pos);
