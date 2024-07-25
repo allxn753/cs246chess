@@ -25,4 +25,5 @@ char Decorator::getChar() {
 void Decorator::move(string pos) {
     vector<int> coord = convertPosition(pos);
     move(coord[0], coord[1]);
+    hasMoved = true;
 }

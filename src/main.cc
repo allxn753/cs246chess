@@ -59,7 +59,7 @@ int main() {
         p->move(arg2);
         game.nextTurn();
         board.display();
-      } else continue;
+      } else { cout << "Invalid move" << endl; }
     }    
     else if (command == "setup") {
       while (cin >> command) {
