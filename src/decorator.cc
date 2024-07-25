@@ -5,11 +5,9 @@ Decorator::Decorator(Piece* piece, int x, int y, unsigned int val, string colour
 
 Decorator::~Decorator() { delete piece; }
 
-Piece* Decorator::pieceAt(int row, int col) {
-    if (row == y && col == x) return this;
-    else {
-        return piece->pieceAt(row, col);
-    }
+Piece* Decorator::pieceAt(int x, int y) {
+    if (this->x == x && this->y == y) return this;
+    return piece->pieceAt(x, y);
 }
 
 char Decorator::getChar() {

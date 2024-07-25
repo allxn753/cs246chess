@@ -23,7 +23,7 @@ void Board::addPiece(char type, string pos) {
 void Board::removePiece(string pos) {
     // cerr << "Removing Piece" << endl;
     vector<int> coord = convertPosition(pos);
-    Piece* p = pieces->pieceAt(coord[1], coord[0]);
+    Piece* p = pieces->pieceAt(coord[0], coord[1]);
     if (p->getChar() == ' ' || p->getChar() == '_') {
         return;
     } else { // piece on tile

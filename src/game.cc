@@ -23,60 +23,37 @@ bool Game::validMove(string pos1, string pos2) {
         if (isupper(activePiece) == isupper(destination)) return false; // false if there are two of the same colour pieces
     }
 
-    int dX;
-    int dY;
+    int dX = coord2[0] - coord1[0];
+    int dY = coord2[1] - coord1[1];
     switch (tolower(activePiece)) {
         case 'k':
             if (coord2[0] > coord1[0] + 1 || coord2[0] < coord1[0] - 1 ||
-                coord2[1] > coord1[1] + 1 || coord2[1] < coord1[1] - 1) return false;
-            
+                coord2[1] > coord1[1] + 1 || coord2[1] < coord1[1] - 1) return false;            
             return true;
 
         case 'q':
-            dX = coord2[0] - coord1[0];
-            dY = coord2[1] - coord1[1];
-
             if (dX != 0 && dY != 0) {
                 if (abs(dX) != abs(dY)) return false;
             }
-
             if (isPathObstructed(coord1, dX, dY)) return false;
+            return true;        
 
-            return true;
-        
         case 'r':
-            dX = coord2[0] - coord1[0];
-            dY = coord2[1] - coord1[1];
-
             if (dX != 0 && dY != 0) return false;
-
             if (isPathObstructed(coord1, dX, dY)) return false;
-
             return true;
 
         case 'b':
-            dX = coord2[0] - coord1[0];
-            dY = coord2[1] - coord1[1];
-
             if (abs(dX) != abs(dY)) return false;
-
             if (isPathObstructed(coord1, dX, dY)) return false;
-
             return true;
 
         case 'n':
-            dX = coord2[0] - coord1[0];
-            dY = coord2[1] - coord1[1];
-
             if ((abs(dX) == 2 && abs(dY) == 1) || (abs(dX) == 1 && abs(dY) == 2)) return true;
-
             return false;
 
         case 'p':
-            dX = coord2[0] - coord1[0];
-            dY = coord2[1] - coord1[1];
             int yMult;
-
             if (isupper(activePiece)) yMult = 1;
             else yMult = -1;
 
@@ -127,5 +104,5 @@ bool Game::isPathObstructed(vector<int> coord1, int dX, int dY) {
 }
 
 bool Game::isThreatened(string pos) {
-
+    
 }

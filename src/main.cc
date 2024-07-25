@@ -50,7 +50,8 @@ int main() {
 
     else if (command == "move") {
       // move pieces on the board
-      cin >> arg1 >> arg2 >> piece; // start end promotion (e7 e8 Q)
+      cin >> arg1 >> arg2; // >> piece; // start end promotion (e7 e8 Q)
+      cout << game.validMove(arg1, arg2) << endl;
     }
     
     else if (command == "setup") {
