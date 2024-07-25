@@ -62,7 +62,7 @@ int main() {
         } else if (command == "-") {
           cin >> arg1; // end (e1)
           board.removePiece(arg1);
-          //board.display();
+          board.display();
         } else if (command == "=") {
           cin >> arg1; // colour (black)
         } else if (command == "p") {

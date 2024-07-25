@@ -3,8 +3,8 @@
 using namespace std;
 
 vector<int> convertPosition(string pos) {
-    int x = int(pos[0]) - 'a';
     int y = char(pos[1] - '1');
+    int x = int(pos[0]) - 'a';    
     vector<int> v = {x,y};
     return v;
 }

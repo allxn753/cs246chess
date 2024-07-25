@@ -1,18 +1,4 @@
 #include "pawn.h"
 
-Pawn::Pawn(Piece *piece, int x, int y, unsigned int val, string colour) 
-: Decorator{piece}, x{x}, y{y}, val{val}, colour{colour} {}
+Pawn::Pawn(Piece *piece, int x, int y, unsigned int val, string colour): Decorator{piece, x, y, val, colour} {type = 'p';}
 
-Piece* Pawn::pieceAt(int row, int col) {
-    if (row == y && col == x) return this;
-    else return piece->pieceAt(row, col);
-}
-
-char Pawn::getChar() {
-    if (colour == "white") return type;
-    else return toupper(type);
-}
-
-bool Pawn::getHasMoved() { return hasMoved; }
-
-void Pawn::setCoordinates(int x, int y) {this->x = x; this->y = y; hasMoved = true;} ;

@@ -21,6 +21,9 @@ using namespace std;
 class Board : public Subject {
     protected:
         Piece* pieces;
+        int numPieces  = 0;
+        vector<Decorator*> arr= {};
+
 
     public:
         inline static int HEIGHT = 8;
@@ -35,7 +38,6 @@ class Board : public Subject {
         Piece* getPiece(int x, int y) const override;
         char getChar(int x, int y) const override;
         void print(string pos);
-
         ~Board();
 };
 

@@ -7,7 +7,6 @@ TextDisplay::TextDisplay(Subject* subject) : subject{subject} { subject->attach(
 
 void TextDisplay::notify() {
     cout << endl;
-    
     for (int i = 7; i >= 0; --i) {
         cout << i + 1 << " ";
         for (int j = 0; j < 8; ++j) {
