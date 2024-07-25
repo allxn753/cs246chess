@@ -28,11 +28,10 @@ void Board::removePiece(string pos) {
     if (p->getChar() == ' ' || p->getChar() == '_') {
         return;
     } else { // piece on tile
-        
         for(int i = 0; i < numPieces; ++i) {
-            if (arr[i]->getX() == coord[0] && arr[i]->getY() == coord[1]) { // found piece
-                if(i != numPieces - 1) arr[i + 1]->piece = arr[i]->piece;
-                else pieces = arr[i-1];
+            if (arr[i]->getX() == coord[0] && arr[i]->getY() == coord[1]) { // found piece.              
+                if(i != numPieces - 1) arr[i + 1]->piece = arr[i]->piece; // not last element
+                else pieces = arr[i]->piece; // last element (including 1 item list)
                 arr[i]->piece = nullptr;                
                 delete arr[i];                    
                 arr.erase(arr.begin() + i);
