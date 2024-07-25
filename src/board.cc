@@ -30,31 +30,16 @@ void Board::removePiece(string pos) {
         
         for(int i = 0; i < numPieces; ++i) {
             if (arr[i]->getX() == coord[0] && arr[i]->getY() == coord[1]) { // found piece
-                if (i == numPieces - 1) { // Popping top piece
-                    arr[i]->piece = nullptr;
-                    delete arr[i];
-                    arr.pop_back();
-                    pieces = arr[i-1];
-                    --numPieces;
-                    break;
-                } else {
-                    // cout << "Removing Middle Element" << endl;
-                    arr[i + 1]->piece = arr[i]->piece;
-                    arr[i]->piece = nullptr;                
-                    delete arr[i];                    
-                    arr.erase(arr.begin() + i);
-
-                    --numPieces;
-                    // for (int i = 0; i < numPieces; ++i) {
-                    //     cerr << i << ": " << arr[i] << " ----> "<< arr[i]->piece << endl;
-                    // }
-                    // cerr << "Piece: " << getChar(coord[0], coord[1]) << endl;
-                    break;
-                }                
+                if(i != numPieces - 1) arr[i + 1]->piece = arr[i]->piece;
+                else pieces = arr[i-1];
+                arr[i]->piece = nullptr;                
+                delete arr[i];                    
+                arr.erase(arr.begin() + i);
+                --numPieces;
+                break;           
             } // found piece
         } // for
-    } // piece on tile 
- 
+    } // piece on tile  
     // delete pieces->pieceAt(coord[0], coord[1]);
 }
 
