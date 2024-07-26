@@ -96,7 +96,7 @@ void Human::makeMove() const {
             game->resign();
             cout << "Player Resigned" << endl;
             game->getBoard()->display();
-            break;    
+            break;
         } else {cout << "Invalid command: 3" << endl;}
     }
 }
