@@ -46,7 +46,7 @@ class Game {
         // Game Loop Methods
         bool validSetup();        
         void updateScore(Player*, Player*);
-        void updateGameState(Player*, Player*);
+        void updateGame(Player*, Player*);
         void gameLoop(Player*, Player*);
 
         // Move Methods

@@ -298,30 +298,6 @@ void Game::updateStalemate() {
     stalemated = false;
 }
 
-void Game::updateGameState(Player* white, Player* black) {
-    bool whiteTurn = (state == Game::WHITE_TURN);
-    updateCheck();
-    updateCheckmate();
-    updateStalemate();
-    updateScore(white, black);
-    if(resigned || checkmated) {
-        if (checkmated) {
-            cout << "Checkmate! ";
-        }
-        if (whiteTurn) cout << "Black";
-        else cout << "White";
-        cout << " wins!" << endl;
-        state = GAME_END;
-    } else if (stalemated) {
-        cout << "Stalemate!" << endl;
-        state = GAME_END;
-    }  else if (checked) {
-        if (whiteTurn) cout << "White";
-        else cout << "Black";
-        cout << " is in check." << endl;
-    }
-}
-
 void Game::updateScore(Player* white, Player* black) {    
     if ((resigned || checkmated) &&  state == Game::WHITE_TURN) black->addScore(1); 
     if ((resigned || checkmated) &&  state == Game::BLACK_TURN) white->addScore(1);
@@ -335,38 +311,46 @@ string Game::whoseTurn() {
     else return "Invalid Turn";
 }
 
+
+void Game::updateGame(Player* white, Player* black) {
+    bool whiteTurn = (state == Game::WHITE_TURN);
+    updateCheck();
+    updateCheckmate();
+    updateStalemate();
+    updateScore(white, black);
+    if(resigned || checkmated) {
+        if (checkmated) {
+            std::cout << "Checkmate! ";
+        }
+        if (whiteTurn) std::cout << "Black";
+        else std::cout << "White";
+        std::cout << " wins!" << endl;
+        state = GAME_END;
+    } else if (stalemated) {
+        std::cout << "Stalemate!" << endl;
+        state = GAME_END;
+    }  else if (checked) {
+        if (whiteTurn) std::cout << "White";
+        else std::cout << "Black";
+        std::cout << " is in check." << endl;
+    }
+}
+
 void Game::gameLoop(Player* white, Player* black) {
+    bool whiteTurn = true;
     reset();
     theBoard->display();
-
     while(getState() != GAME_END) {
         if (getState() == WHITE_TURN) {
             white->makeMove();
         }
-
         else if (getState() == BLACK_TURN) {
             black->makeMove();
         }
-
         //Checkmate
-        if (getCheckmated()) {
-            if (whoseTurn() == "white") {
-                cout << "Checkmate! Black wins!" << endl;
-                black->addScore(1);
-            } else {
-                cout << "Checkmate! White wins!" << endl;
-                white->addScore(1);
-            }
-            reset();
-        }
-        // Check
-        if (getCheck() && whoseTurn() == "white") {
-            cout << "White is in check." << endl;
-        } else if (getCheck()) cout << "Black is in check." << endl;
-
-    }
-    
-    cout << "Final Score:" << endl << "White: " << white->getScore() << endl << "Black: " << black->getScore() << endl;
+        updateGame(white, black);
+    }    
+    std::cout << "Final Score:" << endl << "White: " << white->getScore() << endl << "Black: " << black->getScore() << endl;
 }
 
 void Game::reset(bool blank) {
