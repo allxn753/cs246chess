@@ -65,8 +65,6 @@ void Human::makeMove() const {
                     arg3[1] = arg1[1] - 1;
                     game->getBoard()->getPiece(arg3)->setEnPassant(convertPosition(arg3));
                 }
-<<<<<<< HEAD
-
                 if (game->isPromoting(arg1, arg2)) {
                     cout << "Pawn promotion! Choose a piece: (q, r, b, n)" << endl;
                     char promo;
@@ -91,26 +89,14 @@ void Human::makeMove() const {
                     p->move(arg2);
                 }
                 game->nextTurn();  
-                game->getBoard()->display();            
-            } else if (command == "resign") {
-                game->resign();
-                cout << "Player Resigned" << endl;
-                game->getBoard()->display();    
-=======
-                Piece* p = game->getBoard()->getPiece(arg1);
-                game->getBoard()->removePiece(arg2);
-                p->move(arg2);
-                game->nextTurn();
-                game->getBoard()->display();
-                game->updateCheck();
-                break;
-
->>>>>>> 1c37304754a43d105ee7caf437e084914deb4f8c
-            } else {cout << "Invalid command" << endl;}
-        }
-
-        else if (command == "resign") {
-            game->end();
-        }
+                game->getBoard()->display();        
+                break;    
+            }
+        } else if (command == "resign") {
+            game->resign();
+            cout << "Player Resigned" << endl;
+            game->getBoard()->display();
+            break;    
+        } else {cout << "Invalid command: 3" << endl;}
     }
 }

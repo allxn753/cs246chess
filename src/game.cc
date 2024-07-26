@@ -282,8 +282,6 @@ bool Game::validSetup() {
     return true;
 }
 
-
-
 void Game::setState(string cmd) {
     if (cmd == "white") state = WHITE_TURN;
     else if (cmd == "black") state = BLACK_TURN;
@@ -324,9 +322,7 @@ void Game::updateGameState(Player* white, Player* black) {
     }
 }
 
-void Game::updateScore(Player* white, Player* black) {
-    
-    if (state != Game::GAME_END) return;
+void Game::updateScore(Player* white, Player* black) {    
     if ((resigned || checkmated) &&  state == Game::WHITE_TURN) black->addScore(1); 
     if ((resigned || checkmated) &&  state == Game::BLACK_TURN) white->addScore(1);
     if (stalemated) {white->addScore(0.5); black->addScore(0.5);}
@@ -339,31 +335,7 @@ string Game::whoseTurn() {
     else return "Invalid Turn";
 }
 
-<<<<<<< HEAD
 void Game::reset(bool blank) {
-=======
-void Game::end() {
-    state = GAME_END;
-}
-
-void Game::gameLoop(Player* white, Player* black) {
-    reset();
-    theBoard->display();
-
-    while(getState() != GAME_END) {
-    if (getState() == WHITE_TURN) {
-        white->makeMove();
-    }
-
-    else if (getState() == BLACK_TURN) {
-        black->makeMove();
-    }
-
-    }
-}
-
-void Game::reset() {
->>>>>>> 1c37304754a43d105ee7caf437e084914deb4f8c
     state = WHITE_TURN;
     checked = false;
     checkmated = false;
