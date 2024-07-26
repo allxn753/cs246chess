@@ -53,8 +53,12 @@ void Human::makeMove() const {
                 game->getBoard()->display();
                 game->updateCheck();
                 break;
-                
+
             } else {cout << "Invalid command" << endl;}
+        }
+
+        else if (command == "resign") {
+            game->end();
         }
     }
 }

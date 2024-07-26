@@ -42,7 +42,22 @@ int main() {
       }
 
       else if (arg1 == "human" && arg2.substr(0, arg2.size() - 3) == "computer") {
-        //Player* black = new Computer("black", &game, stoi(arg2.substr(9, arg2.size() - 10)));
+        Player* black = new Computer("black", &game, stoi(arg2.substr(9, arg2.size() - 10)));
+        Player* white = new Human("white", &game);
+
+        game.reset();
+        board.display();
+
+        while(game.getState() != game.GAME_END) {
+          if (game.getState() == game.WHITE_TURN) {
+            white->makeMove();
+          }
+
+          else if (game.getState() == game.BLACK_TURN) {
+            black->makeMove();
+          }
+        }
+
       }
 
       else if (arg2 == "human" && arg1.substr(0, arg1.size() - 3) == "computer") {
@@ -55,13 +70,13 @@ int main() {
         while(game.getState() != game.GAME_END) {
           if (game.getState() == game.WHITE_TURN) {
             white->makeMove();
-            cout << "white";
           }
 
           else if (game.getState() == game.BLACK_TURN) {
             black->makeMove();
-            cout << "black";
           }
+
+
         }
         
       }

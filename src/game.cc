@@ -302,6 +302,10 @@ string Game::whoseTurn() {
     else return "Invalid Turn";
 }
 
+void Game::end() {
+    state = GAME_END;
+}
+
 void Game::reset() {
     state = WHITE_TURN;
     theBoard->wipe();
