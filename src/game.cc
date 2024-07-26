@@ -27,14 +27,9 @@ bool Game::validMove(string pos1, string pos2) {
             if (!theBoard->getPiece(coord1[0], coord1[1])->getHasMoved()) {
                 if (dY == 0) {
                     if (dX == 2) {
-                        cerr << "C" << endl;
-                        cerr << !theBoard->getPiece(coord1[0], 7)->getHasMoved() << endl;
-                        cerr << (tolower(theBoard->getPiece(7, coord1[1])->getChar()) == 'r') << endl;
-                        cerr << !isPathObstructed(coord1, 7 - coord1[0], dY) << endl;
                         if (!theBoard->getPiece(coord1[0], 7)->getHasMoved() && tolower(theBoard->getPiece(7, coord1[1])->getChar()) == 'r' &&
                             !isPathObstructed(coord1, 7 - coord1[0], dY)) return true;
                     } else if (dX == -2) {
-                        cerr << "E" << endl;
                         if (!theBoard->getPiece(coord1[0], 0)->getHasMoved() && tolower(theBoard->getPiece(0, coord1[1])->getChar()) == 'r' &&
                             !isPathObstructed(coord1, 0 - coord1[0], dY)) return true;
                     }
@@ -123,6 +118,13 @@ bool Game::isPathObstructed(vector<int> coord1, int dX, int dY) {
     return false;
 }
 
+
+bool Game::isCheckmate(string colour) {
+    
+    return false;
+} // isInCheck()
+
+
 void Game::updateCheck(string colour) {
     char king;
     string pos;
@@ -133,9 +135,9 @@ void Game::updateCheck(string colour) {
         curr = theBoard->arr[i];
         if(curr->getChar() == king) { // found king
             pos = convertPosition(curr->getX(), curr->getY());
-            nextTurn();
+            nextTurn(); // Have to swap the turn to the other player because otherwise no moves would be valid anyway.
             check = isThreatened(pos);
-            nextTurn();
+            nextTurn(); // Swap player back. Only works for 2 player game.
         } // found king
     } // for
 } // isInCheck()
