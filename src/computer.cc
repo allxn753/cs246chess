@@ -47,5 +47,9 @@ void Computer::makeMove() const {
         }
 
     }
+    
+    game->nextTurn();
+    game->getBoard()->display();
+    game->updateCheck();
 
 }
