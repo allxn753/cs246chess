@@ -59,6 +59,7 @@ int main() {
         game.reset();
         board.display();
         white->makeMove();
+        board.display();
       }
 
       else {
