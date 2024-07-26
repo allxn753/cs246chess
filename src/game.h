@@ -27,9 +27,10 @@ class Game {
         bool isPromoting(string pos1, string pos2);
         bool isThreatened(string pos);
         void nextTurn();
-        void updateCheck(string colour);
+        void updateCheck();
         bool getCheck() {return check;}
-        bool isCheckmate(string colour);
+        bool isCheckmate();
+        vector<string> validMoves(string start);
         string whoseTurn();
 };
 

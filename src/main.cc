@@ -98,8 +98,16 @@ int main() {
         p->move(arg2);
         game.nextTurn();  
         board.display();
-        game.updateCheck(game.whoseTurn());
-        cerr << game.getCheck() << endl;
+        game.updateCheck();
+        // Checkmate
+        if (game.isCheckmate() && (game.whoseTurn() == "white")) {
+          cout << "Checkmate! Black wins!" << endl;
+        } else if (game.isCheckmate()) cout << "Checkmate! Black wins!" << endl;
+
+        // Check
+        if (game.getCheck() && game.whoseTurn() == "white") {
+          cout << "White is in check." << endl;
+        } else if (game.getCheck()) cout << "Black is in check." << endl;
       } else { cout << "Invalid move" << endl; }
     }    
     else if (command == "setup") {
@@ -126,6 +134,9 @@ int main() {
     else { cout << "Invalid command" << endl; }
 
   } // while
-  // output score
+
+  //  output score /*
+  // score.print()?
+  // */
   board.detach(textDisplay);
 } // main
