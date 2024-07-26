@@ -461,3 +461,4 @@ void Game::reset(bool blank) {
 }
 
 Game::~Game() {delete theBoard;}
+
