@@ -5,14 +5,14 @@
 
 class Blank: public Piece {
   protected:
-    bool enPassant;
+    vector<int> enPassant = {8, 8};
     char type;
   public:
     Piece* pieceAt(int x, int y) override;
     Piece* pieceAt(string) override;
     char getChar() override;
-    void setEnPassant(bool tf) { enPassant = tf; };
-    bool getEnPassant() { return enPassant; };
+    void setEnPassant(vector<int> coord) { enPassant = coord; };
+    vector<int> getEnPassant() { return enPassant; };
     bool getHasMoved() override;
 };
 

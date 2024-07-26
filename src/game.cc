@@ -77,11 +77,9 @@ bool Game::validMove(string pos1, string pos2) {
             if (dX != 0 && abs(dY) != 1) return false;
             if (isPathObstructed(coord1, dX, dY)) return false;
 
-            if (dX == 0 && theBoard->getPiece(coord2[0], coord2[1])->getChar() != ' ' &&
-                theBoard->getPiece(coord2[0], coord2[1])->getChar() != '_') return false;
-            if (dX != 0 && (theBoard->getPiece(coord2[0], coord2[1])->getChar() == ' ' ||
-                theBoard->getPiece(coord2[0], coord2[1])->getChar() == '_')) return false;
-
+            if (dX == 0 && destination != ' ' && destination != '_') return false;
+            if (dX != 0 && (destination == ' ' || destination == '_') &&
+                theBoard->getPiece(coord2[0], coord2[1])->getEnPassant() != coord2) return false;
             return true;
     }
 
@@ -181,8 +179,31 @@ int Game::isCastling(string pos1, string pos2) {
     return 0;
 }
 
-bool Game::isEnPassant(string pos1, string pos2) {
-    
+int Game::isEnPassant(string pos1, string pos2) {
+    vector<int> coord1 = convertPosition(pos1);
+    vector<int> coord2 = convertPosition(pos2);
+    int dY = coord2[1] - coord1[1];
+
+    if (tolower(theBoard->getChar(coord1[0], coord1[1])) == 'p' &&
+        theBoard->getPiece(coord2[0], coord2[1])->getEnPassant() == coord2) {
+            if (dY > 0) return 1;
+            if (dY < 0) return -1;
+        }
+
+    return 0;
+}
+
+int Game::isSkipping(string pos1, string pos2) {
+    vector<int> coord1 = convertPosition(pos1);
+    vector<int> coord2 = convertPosition(pos2);
+    int dY = coord2[1] - coord1[1];
+
+    if (abs(dY) == 2 && tolower(theBoard->getChar(coord1[0], coord1[1])) == 'p') {
+        if (dY > 0) return 1;
+        if (dY < 0) return -1;
+    }
+
+    return 0;
 }
 
 bool Game::isPromoting(string pos1, string pos2) {
