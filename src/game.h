@@ -15,7 +15,7 @@ class Game {
         gameState state;
         bool check = false;
     public:        
-        Game();
+        Game() {};
         Game(Board *);
         Board* getBoard() { return theBoard; };
         void reset();
@@ -27,8 +27,10 @@ class Game {
         bool isPromoting(string pos1, string pos2);
         bool isThreatened(string pos);
         void nextTurn();
-        void updateCheck(string colour);
+        void updateCheck();
         bool getCheck() {return check;}
+        bool isCheckmate();
+        vector<string> validMoves(string start);
         string whoseTurn();
 };
 

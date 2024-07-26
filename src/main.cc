@@ -51,13 +51,15 @@ int main() {
       }
 
       else if (arg1 == "human" && arg2.substr(0, arg2.size() - 3) == "computer") {
-        //Player* black = new Computer("black", game, stoi(arg2.substr(9, arg2.size() - 10)));
+        //Player* black = new Computer("black", &game, stoi(arg2.substr(9, arg2.size() - 10)));
       }
 
       else if (arg2 == "human" && arg1.substr(0, arg1.size() - 3) == "computer") {
-        //Player* black = new Computer("black", game, stoi(arg1.substr(9, arg1.size() - 10)));
-        // black->makeMove();
-        // board.display();
+        Player* white = new Computer("white", &game, stoi(arg1.substr(9, arg1.size() - 10)));
+        game.reset();
+        board.display();
+        white->makeMove();
+        board.display();
       }
 
       else {
@@ -117,8 +119,16 @@ int main() {
         p->move(arg2);
         game.nextTurn();  
         board.display();
-        game.updateCheck(game.whoseTurn());
-        cerr << game.getCheck() << endl;
+        game.updateCheck();
+        // Checkmate
+        if (game.isCheckmate() && (game.whoseTurn() == "white")) {
+          cout << "Checkmate! Black wins!" << endl;
+        } else if (game.isCheckmate()) cout << "Checkmate! Black wins!" << endl;
+
+        // Check
+        if (game.getCheck() && game.whoseTurn() == "white") {
+          cout << "White is in check." << endl;
+        } else if (game.getCheck()) cout << "Black is in check." << endl;
       } else { cout << "Invalid move" << endl; }
     }    
     else if (command == "setup") {
@@ -145,6 +155,9 @@ int main() {
     else { cout << "Invalid command" << endl; }
 
   } // while
-  // output score
+
+  //  output score /*
+  // score.print()?
+  // */
   board.detach(textDisplay);
 } // main

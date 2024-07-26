@@ -116,19 +116,50 @@ bool Game::isPathObstructed(vector<int> coord1, int dX, int dY) {
     return false;
 }
 
-void Game::updateCheck(string colour) {
+
+vector<string> Game::validMoves(string start) {
+    vector<string> moves;
+    string to;
+    for (int i = 0; i < Board::WIDTH; ++i) {
+        for (int j = 0; j < Board::HEIGHT; ++j) {
+            to = convertPosition(i,j);
+            if (validMove(start, to)) moves.emplace_back(to);
+        }
+    }
+    return moves;
+}
+
+
+bool Game::isCheckmate() {
+    if (check == false) return false; // King must be threatened and no escape moves.
+    string original_pos, from, to;
+    vector<string> moves;
+    // for () {
+    //     original_pos = convertPosition(p->getX(), p->getY());
+    //     moves = validMoves(original_pos);
+    //     for (auto m: moves) {
+    //         p->move(m);
+
+    //     }
+    // }
+    check = true;
+    return false;
+} // isInCheck()
+
+
+void Game::updateCheck() {
     char king;
     string pos;
     Decorator * curr;
-    if (colour == "white") king = 'K';
-    else if (colour == "black") king = 'k';
+    if (state == WHITE_TURN) king = 'K';
+    else if (state == BLACK_TURN) king = 'k';
     for(int i = 0; i < theBoard->arr.size(); ++i) {
         curr = theBoard->arr[i];
         if(curr->getChar() == king) { // found king
             pos = convertPosition(curr->getX(), curr->getY());
-            nextTurn();
+            nextTurn(); // Have to swap the turn to the other player because otherwise no moves would be valid anyway.
             check = isThreatened(pos);
-            nextTurn();
+            nextTurn(); // Swap player back. Only works for 2 player game.
         } // found king
     } // for
 } // isInCheck()

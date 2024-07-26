@@ -1,7 +1,11 @@
 #include "computer.h"
 #include "helpers.h"
+#include <stdlib.h>
+#include <time.h> 
 
 Decorator* getRandomPiece(string playerColour, Game* game, int numPieces) {
+
+    srand (time(NULL));
 
     int x = rand() % numPieces;
 
@@ -23,18 +27,27 @@ void Computer::makeMove() const {
         vector<Decorator*> arr = game->getBoard()->getArr();
         bool success = false;
         Decorator* piece = getRandomPiece(playerColour, game, numPieces);
-        int xPos = piece->getX();
-        int yPos = piece->getY();
+
+        cout << convertPosition(0, 6) << endl;
+        cout << convertPosition(0, 5) << endl;
+        cout << game->validMove(convertPosition(0, 6), convertPosition(0, 5)) << endl;
 
         while (success) {
-            for (int i = 0; i < numPieces; i++) {
-                if (game->validMove(convertPosition(xPos, yPos), convertPosition(arr[i]->getX(), arr[i]->getY()))) {
-                    piece->move(arr[i]->getX(), arr[i]->getY());
-                    success = true;
-                    break;
+
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    if (game->validMove(convertPosition(piece->getX(), piece->getY()), convertPosition(i, j))) {
+                        piece->move(i, j);
+                        success = true;
+                        cout << "n";
+                        break;
+                    }
+
+                    if (success) {cout << "a"; break;}
                 }
+
+                if (success) {cout << "b"; break;}
             }
-            piece = getRandomPiece(playerColour, game, numPieces);
         }
 
     }
