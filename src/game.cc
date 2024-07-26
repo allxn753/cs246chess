@@ -26,10 +26,15 @@ bool Game::validMove(string pos1, string pos2) {
             if (!theBoard->getPiece(coord1[0], coord1[1])->getHasMoved()) {
                 if (dY == 0) {
                     if (dX == 2) {
-                        if (!theBoard->getPiece(coord1[0], 7)->getHasMoved() && theBoard->getPiece(coord1[0], 7)->getChar() == 'r' &&
+                        cerr << "C" << endl;
+                        cerr << !theBoard->getPiece(coord1[0], 7)->getHasMoved() << endl;
+                        cerr << (tolower(theBoard->getPiece(7, coord1[1])->getChar()) == 'r') << endl;
+                        cerr << !isPathObstructed(coord1, 7 - coord1[0], dY) << endl;
+                        if (!theBoard->getPiece(coord1[0], 7)->getHasMoved() && tolower(theBoard->getPiece(7, coord1[1])->getChar()) == 'r' &&
                             !isPathObstructed(coord1, 7 - coord1[0], dY)) return true;
                     } else if (dX == -2) {
-                        if (!theBoard->getPiece(coord1[0], 0)->getHasMoved() && theBoard->getPiece(coord1[0], 0)->getChar() == 'r' &&
+                        cerr << "E" << endl;
+                        if (!theBoard->getPiece(coord1[0], 0)->getHasMoved() && tolower(theBoard->getPiece(0, coord1[1])->getChar()) == 'r' &&
                             !isPathObstructed(coord1, 0 - coord1[0], dY)) return true;
                     }
                 }
@@ -83,6 +88,8 @@ bool Game::validMove(string pos1, string pos2) {
 
             return true;
     }
+
+    return false;
 }
 
 bool Game::isPathObstructed(vector<int> coord1, int dX, int dY) {
@@ -145,13 +152,19 @@ bool Game::isThreatened(string pos) {
     return false;
 }
 
-bool Game::isCastling(string pos1, string pos2) {
+int Game::isCastling(string pos1, string pos2) {
     vector<int> coord1 = convertPosition(pos1);
     vector<int> coord2 = convertPosition(pos2);
     int dX = coord2[0] - coord1[0];
     int dY = coord2[1] - coord1[1];
 
-    if (dY == 0 && abs(dX) == 2 && tolower(theBoard->getChar(coord1[0], coord1[1]) == 'k')) return true;
+    if (dY == 0 && abs(dX) == 2 && tolower(theBoard->getChar(coord1[0], coord1[1])) == 'k') {
+        cerr << "Castling" << endl;
+        if (dX > 0) return 1;
+        if (dX < 0) return -1;
+    }
+    
+    return 0;
 }
 
 bool Game::isEnPassant(string pos1, string pos2) {

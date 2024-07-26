@@ -56,6 +56,20 @@ int main() {
       // move pieces on the board
       cin >> arg1 >> arg2; // >> piece; // start end promotion (e7 e8 Q)
       if(game.validMove(arg1, arg2)) {
+        cerr << game.isCastling(arg1, arg2) << endl;
+        if (game.isCastling(arg1, arg2) == 1) {
+          string arg3 = arg1;
+          arg3[0] = 'h';
+          Piece* r = board.getPiece(arg3);
+          arg3[0] = arg1[0] + 1;
+          r->move(arg3);
+        } else if (game.isCastling(arg1, arg2) == -1) {
+          string arg3 = arg1;
+          arg3[0] = 'a';
+          Piece* r = board.getPiece(arg3);
+          arg3[0] = arg1[0] - 1;
+          r->move(arg3);
+        }
         Piece* p = board.getPiece(arg1);
         board.removePiece(arg2);
         p->move(arg2);
