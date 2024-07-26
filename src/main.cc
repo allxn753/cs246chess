@@ -36,14 +36,47 @@ int main() {
 
       if (arg1 == arg2) {
         if (arg1 == "human"){
+          Player* white = new Human("white", &game);
+          Player* black = new Human("black", &game);
+
           game.reset();
           board.display();
+
+          while(game.getState() != game.GAME_END) {
+            if (game.getState() == game.WHITE_TURN) {
+              white->makeMove();
+            }
+
+            else if (game.getState() == game.BLACK_TURN) {
+              black->makeMove();
+            }
+
+          }
+        }
+
+        if (arg1.substr(0, arg1.size() - 3) == "computer"){
+          Player* white = new Computer("white", &game, stoi(arg1.substr(9, arg2.size() - 10)));
+          Player* black = new Computer("black", &game, stoi(arg2.substr(9, arg2.size() - 10)));
+
+          game.reset();
+          board.display();
+
+          while(game.getState() != game.GAME_END) {
+            if (game.getState() == game.WHITE_TURN) {
+              white->makeMove();
+            }
+
+            else if (game.getState() == game.BLACK_TURN) {
+              black->makeMove();
+            }
+
+          }
         }
       }
 
       else if (arg1 == "human" && arg2.substr(0, arg2.size() - 3) == "computer") {
-        Player* black = new Computer("black", &game, stoi(arg2.substr(9, arg2.size() - 10)));
         Player* white = new Human("white", &game);
+        Player* black = new Computer("black", &game, stoi(arg2.substr(9, arg2.size() - 10)));
 
         game.reset();
         board.display();
@@ -98,8 +131,7 @@ int main() {
       game.reset();
       continue;
     } else if (command == "threat") {
-      // move pieces on the board
-      cin >> arg1; // >> piece; // start end promotion (e7 e8 Q)
+      cin >> arg1;\
       cerr << arg1 << " threatened: " << game.isThreatened(arg1) << endl;
       board.display();
     } else if (command == "move") {
