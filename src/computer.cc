@@ -22,23 +22,27 @@ void Computer::makeMove() const {
         int numPieces = game->getBoard()->getNumPieces();
         vector<Decorator*> arr = game->getBoard()->getArr();
         bool success = false;
-        Decorator* piece = getRandomPiece(playerColour, game, numPieces);
-        int xPos = piece->getX();
-        int yPos = piece->getY();
+        Decorator* piece;
+        int xPos, yPos;
 
-        cout << convertPosition(xPos, yPos);
-        cout << convertPosition(arr[0]->getX(), arr[0]->getY());
 
-        while (success) {
-            cout << "dwq";
-            for (int i = 0; i < numPieces; i++) {
-                if (game->validMove(convertPosition(xPos, yPos), convertPosition(arr[i]->getX(), arr[i]->getY()))) {
-                    piece->move(arr[i]->getX(), arr[i]->getY());
-                    success = true;
-                    break;
-                }
-            }
+        while (!success) {            
             piece = getRandomPiece(playerColour, game, numPieces);
+            xPos = piece->getX();
+            yPos = piece->getY();
+            cout << "Trying to move new Piece: " << piece->getChar() << " " << xPos << "," << yPos << endl;
+            for (int i = 0; i < Board::WIDTH; ++i) {
+                for (int j = 0; j < Board::HEIGHT; ++j) {
+                    cerr << convertPosition(i, j) << endl;
+                    if (game->validMove(convertPosition(xPos, yPos), convertPosition(i, j))) {
+                        cerr << "Found Move" << endl;
+                        piece->move(i, j);
+                        success = true;
+                        break;
+                    }
+                }                
+            }
+            
         }
 
     }
