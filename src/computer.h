@@ -6,7 +6,7 @@
 
 class Computer : public Player {
     protected:
-        int level = 1;
+        int level;
     
     public:
         Computer(string playerColour, Game* game, int level);

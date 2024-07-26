@@ -42,6 +42,7 @@ class Game {
         void updateCheckmate();
         void updateStalemate();
         void resign();
+        void performMove(string arg1, string arg2);
 
         // Game Loop Methods
         bool validSetup();        

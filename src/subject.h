@@ -3,7 +3,6 @@
 #include <vector>
 
 class Observer; // forward declaration
-class Piece;
 
 class Subject {
   std::vector<Observer*> observers;

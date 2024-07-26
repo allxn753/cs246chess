@@ -21,6 +21,7 @@ int main() {
   
   string command, arg1, arg2;
   char piece;
+  bool setup = false;
   Piece* pieces = new Blank;
   TextDisplay* textDisplay;
   Player *white, *black;
@@ -32,7 +33,7 @@ int main() {
     if (command == "game") {
       // starting a new game
       cin >> arg1 >> arg2; // white-player black-player
-
+      if (!setup) game.reset();
       if (arg1 == arg2) {
         if (arg1 == "human"){
           white = new Human("white", &game);
@@ -67,6 +68,7 @@ int main() {
     }
     else if (command == "setup") {
       game.reset(true);
+      setup = true;
       while (cin >> command) {
         if (command == "+") {
           cin >> piece >> arg2; // piece end (K e1)
@@ -95,6 +97,6 @@ int main() {
     else { std::cout << "Invalid command: 1" << endl; }
 
   } // while
-  std::cout << "Final Score:" << endl << "White: " << white->getScore() << endl << "Black: " << black->getScore() << endl;
+  if (white && black) std::cout << "Final Score:" << endl << "White: " << white->getScore() << endl << "Black: " << black->getScore() << endl;
   board.detach(textDisplay);
 } // main

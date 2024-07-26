@@ -10,7 +10,6 @@ bool Game::validMove(string pos1, string pos2) {
     if (coord1[0] < 0 || coord1[0] >= Board::WIDTH || coord1[1] < 0 || coord1[1] >= Board::HEIGHT ||
         coord2[0] < 0 || coord2[0] >= Board::WIDTH || coord2[1] < 0 || coord2[1] >= Board::HEIGHT) return false; // return false if out of bounds of the board
     if (coord1 == coord2) return false; // no piece can move onto itself
-
     char activePiece = theBoard->getPiece(coord1[0], coord1[1])->getChar();
     char destination = theBoard->getPiece(coord2[0], coord2[1])->getChar();
 
@@ -336,9 +335,68 @@ void Game::updateGame(Player* white, Player* black) {
     }
 }
 
+void Game::performMove(string arg1, string arg2) {
+    if (isCastling(arg1, arg2) == 1) {
+        string arg3 = arg1;
+        arg3[0] = 'h';
+        Piece* r = getBoard()->getPiece(arg3);
+        arg3[0] = arg1[0] + 1;
+        r->move(arg3);
+    } else if (isCastling(arg1, arg2) == -1) {
+        string arg3 = arg1;
+        arg3[0] = 'a';
+        Piece* r = getBoard()->getPiece(arg3);
+        arg3[0] = arg1[0] - 1;
+        r->move(arg3);
+    }
+    if (isEnPassant(arg1, arg2) == 1) {
+        string arg3 = arg2;
+        arg3[1] = arg2[1] - 1;
+        getBoard()->removePiece(arg3);
+    }
+    else if (isEnPassant(arg1, arg2) == -1) {
+        string arg3 = arg2;
+        arg3[1] = arg2[1] + 1;
+        getBoard()->removePiece(arg3);
+    }
+    getBoard()->getArr()[0]->setEnPassant({8, 8});
+    if (isSkipping(arg1, arg2) == 1) {
+        string arg3 = arg1;
+        arg3[1] = arg1[1] + 1;
+        getBoard()->getPiece(arg3)->setEnPassant(convertPosition(arg3));
+    } else if (isSkipping(arg1, arg2) == -1) {
+        string arg3 = arg1;
+        arg3[1] = arg1[1] - 1;
+        getBoard()->getPiece(arg3)->setEnPassant(convertPosition(arg3));
+    }
+    if (isPromoting(arg1, arg2)) {
+        cout << "Pawn promotion! Choose a piece: (q, r, b, n)" << endl;
+        char promo;
+        while (cin >> promo) {
+            promo = tolower(promo);
+            if (promo != 'q' && promo != 'r' && promo != 'b' && promo != 'n') {
+                cout << "Invalid promotion" << endl;
+            } else {
+                getBoard()->removePiece(arg2);
+                if (isupper(getBoard()->getPiece(arg1)->getChar())) {
+                    getBoard()->addPiece(toupper(promo), arg2);
+                } else {
+                    getBoard()->addPiece(promo, arg2);
+                }
+            getBoard()->removePiece(arg1);
+            }
+        } // while
+    } else {
+        Piece* p = getBoard()->getPiece(arg1);
+        getBoard()->removePiece(arg2);
+        p->move(arg2);
+    }
+    nextTurn();  
+    getBoard()->display(); 
+}
+
+
 void Game::gameLoop(Player* white, Player* black) {
-    bool whiteTurn = true;
-    reset();
     theBoard->display();
     while(getState() != GAME_END) {
         if (getState() == WHITE_TURN) {
@@ -347,7 +405,6 @@ void Game::gameLoop(Player* white, Player* black) {
         else if (getState() == BLACK_TURN) {
             black->makeMove();
         }
-        //Checkmate
         updateGame(white, black);
     }    
 }
