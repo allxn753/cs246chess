@@ -262,6 +262,26 @@ void Game::nextTurn() {
     else state = WHITE_TURN;
 }
 
+bool Game::validSetup() {
+    // Exactly one white and one black king
+    bool seenWhiteKing = false;
+    bool seenBlackKing = false;
+    for (auto p: theBoard->getArr()) {
+        if (p->getChar() == 'K' && seenWhiteKing) return false;
+        if (p->getChar() == 'k' && seenBlackKing) return false;
+        if (p->getChar() == 'K') seenWhiteKing = true;
+        if (p->getChar() == 'k') seenBlackKing = true;
+    }
+    // Not in check.
+    updateCheck();
+    if (check) return false;
+    return true;
+}
+
+void Game::setState(string colour) {
+    if (colour == "white") state = WHITE_TURN;
+    else if (colour == "black") state = BLACK_TURN;
+}
 
 string Game::whoseTurn() {
     if (state == WHITE_TURN) return "white";

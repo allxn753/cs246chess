@@ -20,12 +20,14 @@ class Game {
         Board* getBoard() { return theBoard; };
         void reset();
         bool validMove(string pos1, string pos2);
+        void setState(string);
         bool isPathObstructed(vector<int> coord1, int dX, int dY);
         int isCastling(string pos1, string pos2);
         int isEnPassant(string pos1, string pos2);
         int isSkipping(string pos1, string pos2);
         bool isPromoting(string pos1, string pos2);
         bool isThreatened(string pos);
+        bool validSetup();
         void nextTurn();
         void updateCheck();
         bool getCheck() {return check;}

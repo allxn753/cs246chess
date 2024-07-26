@@ -124,7 +124,7 @@ int main() {
         if (game.isCheckmate() && (game.whoseTurn() == "white")) {
           cout << "Checkmate! Black wins!" << endl;
         } else if (game.isCheckmate()) cout << "Checkmate! Black wins!" << endl;
-
+        
         // Check
         if (game.getCheck() && game.whoseTurn() == "white") {
           cout << "White is in check." << endl;
@@ -144,12 +144,21 @@ int main() {
           board.display();
         } else if (command == "=") {
           cin >> arg1; // colour (black)
+          if (arg1 != "white" && arg1 != "black") {
+            cout << "Invalid colour" << endl; continue;
+          } else {
+            game.setState(arg1);
+          }          
         } else if (command == "p") {
           cin >> arg1;
           board.print(arg1);
-        } else if (command == "done") {
-          break;
-        } else { cout << "Invalid command" << endl; }
+        } else if (command == "done") { // done
+          if(game.validSetup()) break;
+          else {
+            cout << "Invalid setup" << endl; 
+            continue;
+            }
+        } else { cout << "Invalid command" << endl; } //invalid command
       }
     } // setup mode
     else { cout << "Invalid command" << endl; }
