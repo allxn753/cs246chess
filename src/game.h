@@ -23,6 +23,7 @@ class Game {
         bool isPathObstructed(vector<int> coord1, int dX, int dY);
         int isCastling(string pos1, string pos2);
         bool isEnPassant(string pos1, string pos2);
+        bool isSkipping(string pos1, string pos2);
         bool isPromoting(string pos1, string pos2);
         bool isThreatened(string pos);
         void nextTurn();

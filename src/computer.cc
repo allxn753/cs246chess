@@ -13,7 +13,7 @@ Decorator* getRandomPiece(string playerColour, Game* game, int numPieces) {
 
 }
 
-Computer::Computer(string playerColour, Game* game, unsigned int level) : Player{playerColour, game}, level{level} {}
+Computer::Computer(string playerColour, Game* game, int level) : Player{playerColour, game}, level{level} {}
 
 void Computer::makeMove() const {
 

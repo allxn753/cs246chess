@@ -27,14 +27,9 @@ bool Game::validMove(string pos1, string pos2) {
             if (!theBoard->getPiece(coord1[0], coord1[1])->getHasMoved()) {
                 if (dY == 0) {
                     if (dX == 2) {
-                        cerr << "C" << endl;
-                        cerr << !theBoard->getPiece(coord1[0], 7)->getHasMoved() << endl;
-                        cerr << (tolower(theBoard->getPiece(7, coord1[1])->getChar()) == 'r') << endl;
-                        cerr << !isPathObstructed(coord1, 7 - coord1[0], dY) << endl;
                         if (!theBoard->getPiece(coord1[0], 7)->getHasMoved() && tolower(theBoard->getPiece(7, coord1[1])->getChar()) == 'r' &&
                             !isPathObstructed(coord1, 7 - coord1[0], dY)) return true;
                     } else if (dX == -2) {
-                        cerr << "E" << endl;
                         if (!theBoard->getPiece(coord1[0], 0)->getHasMoved() && tolower(theBoard->getPiece(0, coord1[1])->getChar()) == 'r' &&
                             !isPathObstructed(coord1, 0 - coord1[0], dY)) return true;
                     }

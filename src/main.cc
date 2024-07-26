@@ -49,6 +49,16 @@ int main() {
         }
       }
 
+      else if (arg1 == "human" && arg2.substr(0, arg2.size() - 3) == "computer") {
+        //Player* black = new Computer("black", game, stoi(arg2.substr(9, arg2.size() - 10)));
+      }
+
+      else if (arg2 == "human" && arg1.substr(0, arg1.size() - 3) == "computer") {
+        //Player* black = new Computer("black", game, stoi(arg1.substr(9, arg1.size() - 10)));
+        // black->makeMove();
+        // board.display();
+      }
+
       else {
         cout << "Invalid arguments for game command" << endl;
         continue;
@@ -68,7 +78,6 @@ int main() {
       // move pieces on the board
       cin >> arg1 >> arg2; // >> piece; // start end promotion (e7 e8 Q)
       if(game.validMove(arg1, arg2)) {
-        cerr << game.isCastling(arg1, arg2) << endl;
         if (game.isCastling(arg1, arg2) == 1) {
           string arg3 = arg1;
           arg3[0] = 'h';
