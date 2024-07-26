@@ -13,6 +13,7 @@ class Game {
     private:
         Board* theBoard;
         gameState state;
+        bool check = false;
     public:        
         Game();
         Game(Board *);
@@ -25,7 +26,8 @@ class Game {
         bool isPromoting(string pos1, string pos2);
         bool isThreatened(string pos);
         void nextTurn();
-        bool isInCheck(string colour);
+        void updateCheck(string colour);
+        bool getCheck() {return check;}
         string whoseTurn();
 };
 

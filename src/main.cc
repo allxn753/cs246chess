@@ -87,7 +87,8 @@ int main() {
         p->move(arg2);
         game.nextTurn();  
         board.display();
-        cerr << "Check: " << game.isInCheck(game.whoseTurn()) << endl;        
+        game.updateCheck(game.whoseTurn());
+        cerr << game.getCheck() << endl;
       } else { cout << "Invalid move" << endl; }
     }    
     else if (command == "setup") {

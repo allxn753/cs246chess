@@ -123,7 +123,7 @@ bool Game::isPathObstructed(vector<int> coord1, int dX, int dY) {
     return false;
 }
 
-bool Game::isInCheck(string colour) {
+void Game::updateCheck(string colour) {
     char king;
     string pos;
     Decorator * curr;
@@ -134,9 +134,8 @@ bool Game::isInCheck(string colour) {
         if(curr->getChar() == king) { // found king
             pos = convertPosition(curr->getX(), curr->getY());
             nextTurn();
-            bool b =  isThreatened(pos);
+            check = isThreatened(pos);
             nextTurn();
-            return b;
         } // found king
     } // for
 } // isInCheck()
