@@ -339,7 +339,31 @@ string Game::whoseTurn() {
     else return "Invalid Turn";
 }
 
+<<<<<<< HEAD
 void Game::reset(bool blank) {
+=======
+void Game::end() {
+    state = GAME_END;
+}
+
+void Game::gameLoop(Player* white, Player* black) {
+    reset();
+    theBoard->display();
+
+    while(getState() != GAME_END) {
+    if (getState() == WHITE_TURN) {
+        white->makeMove();
+    }
+
+    else if (getState() == BLACK_TURN) {
+        black->makeMove();
+    }
+
+    }
+}
+
+void Game::reset() {
+>>>>>>> 1c37304754a43d105ee7caf437e084914deb4f8c
     state = WHITE_TURN;
     checked = false;
     checkmated = false;

@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "board.h"
+#include "player.h"
 
 using namespace std;
 
@@ -53,7 +54,19 @@ class Game {
         int isEnPassant(string pos1, string pos2);
         int isSkipping(string pos1, string pos2);
         bool isPromoting(string pos1, string pos2);
+<<<<<<< HEAD
         bool isThreatened(string pos);     
+=======
+        bool isThreatened(string pos);
+        bool validSetup();
+        void nextTurn();
+        void updateCheck();
+        bool getCheck() {return check;}
+        bool isCheckmate();
+        void end();
+        bool isStalemate();
+        void gameLoop(Player* white, Player* black);
+>>>>>>> 1c37304754a43d105ee7caf437e084914deb4f8c
         vector<string> validMoves(string start);
         
 };

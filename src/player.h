@@ -4,7 +4,7 @@
 #include <string>
 #include "game.h"
 
-class Player : public Game {
+class Player {
     protected:
         string playerColour;
         Game* game;
