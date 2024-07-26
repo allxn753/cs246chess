@@ -47,9 +47,12 @@ int main() {
       // calling resign function to end game
       cout << "resign" << endl;
       break;
-    }
-
-    else if (command == "move") {
+    } else if (command == "threat") {
+      // move pieces on the board
+      cin >> arg1; // >> piece; // start end promotion (e7 e8 Q)
+      cerr << arg1 << ": " << game.isThreatened(arg1) << endl;
+      board.display();
+    } else if (command == "move") {
       // move pieces on the board
       cin >> arg1 >> arg2; // >> piece; // start end promotion (e7 e8 Q)
       if(game.validMove(arg1, arg2)) {
