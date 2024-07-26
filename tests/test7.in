@@ -1,0 +1,10 @@
+setup
++ K e2
++ r e5
+done
+threat e1
+threat e2
+threat e5
+threat e8
+
+threat f1
