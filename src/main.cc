@@ -21,14 +21,12 @@ int main() {
   
   string command, arg1, arg2;
   char piece;
-  bool setup = false;
-  Piece* pieces = new Blank;
-  TextDisplay* textDisplay;
+  bool setup = false;  
   Player *white, *black;
-  Board board{pieces};
-  textDisplay = new TextDisplay(&board);
-  Game game{&board};
-
+  Piece* p = new Blank;
+  Board* b = new Board{p};
+  Game game{b};
+  TextDisplay* textDisplay = new TextDisplay(game.getBoard());
   while (cin >> command) {
     if (command == "game") {
       // starting a new game
@@ -72,12 +70,12 @@ int main() {
       while (cin >> command) {
         if (command == "+") {
           cin >> piece >> arg2; // piece end (K e1)
-          board.addPiece(piece, arg2);
-          board.display();
+          game.getBoard()->addPiece(piece, arg2);
+          game.getBoard()->display();
         } else if (command == "-") {
           cin >> arg1; // end (e1)
-          board.removePiece(arg1);
-          board.display();
+          game.getBoard()->removePiece(arg1);
+          game.getBoard()->display();
         } else if (command == "=") {
           cin >> arg1; // colour (black)
           if (arg1 != "white" && arg1 != "black") {
@@ -87,7 +85,7 @@ int main() {
           }          
         } else if (command == "p") {
           cin >> arg1;
-          board.print(arg1);
+          game.getBoard()->print(arg1);
         } else if (command == "done") { // done
           if(game.validSetup()) break;
           else {cerr << "Invalid setup" << endl; continue;}
@@ -98,5 +96,7 @@ int main() {
 
   } // while
   if (white && black) std::cout << "Final Score:" << endl << "White: " << white->getScore() << endl << "Black: " << black->getScore() << endl;
-  board.detach(textDisplay);
+  game.getBoard()->detach(textDisplay);
+  delete white;
+  delete black;
 } // main

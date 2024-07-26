@@ -31,8 +31,8 @@ void Board::removePiece(string pos) {
             if (arr[i]->getX() == coord[0] && arr[i]->getY() == coord[1]) { // found piece.              
                 if(i != numPieces - 1) arr[i + 1]->piece = arr[i]->piece; // not last element
                 else pieces = arr[i]->piece; // last element (including 1 item list)
-                arr[i]->piece = nullptr;                
-                delete arr[i];                    
+                arr[i]->piece = nullptr;
+                delete arr[i];
                 arr.erase(arr.begin() + i);
                 --numPieces;
                 break;           
@@ -68,7 +68,7 @@ void Board::print(string pos) {
     std::cout << pieces->pieceAt(coord[0], coord[1])->getChar() << std::endl << std::endl;
 }
 
-Board::~Board(){ delete pieces; }
+Board::~Board() {delete pieces;}
 
 void Board::wipe() {
     delete pieces;

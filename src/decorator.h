@@ -16,7 +16,7 @@ class Decorator: public Piece {
         vector<int> enPassant = {8, 8};
     public:
         Decorator(Piece* piece, int, int, unsigned int, string);
-        virtual ~Decorator();
+        virtual ~Decorator() override;
         int getX() {return x;}
         int getY() {return y;}
         virtual char getChar() override;
