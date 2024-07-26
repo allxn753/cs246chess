@@ -1,0 +1,6 @@
+game computer[1] human
+move a7 a5
+move a8 a6
+move a6 e6
+move e6 e2
+resign
