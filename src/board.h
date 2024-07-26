@@ -9,7 +9,6 @@
 #include "chess_pieces.h"
 
 class Piece;
-
 class Game;
 
 using namespace std;
