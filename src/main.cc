@@ -38,79 +38,27 @@ int main() {
         if (arg1 == "human"){
           Player* white = new Human("white", &game);
           Player* black = new Human("black", &game);
-
-          game.reset();
-          board.display();
-
-          while(game.getState() != game.GAME_END) {
-            if (game.getState() == game.WHITE_TURN) {
-              white->makeMove();
-            }
-
-            else if (game.getState() == game.BLACK_TURN) {
-              black->makeMove();
-            }
-
-          }
+          game.gameLoop(white, black);
         }
 
         if (arg1.substr(0, arg1.size() - 3) == "computer"){
           Player* white = new Computer("white", &game, stoi(arg1.substr(9, arg2.size() - 10)));
           Player* black = new Computer("black", &game, stoi(arg2.substr(9, arg2.size() - 10)));
-
-          game.reset();
-          board.display();
-
-          while(game.getState() != game.GAME_END) {
-            if (game.getState() == game.WHITE_TURN) {
-              white->makeMove();
-            }
-
-            else if (game.getState() == game.BLACK_TURN) {
-              black->makeMove();
-            }
-
-          }
+          game.gameLoop(white, black);
         }
       }
 
       else if (arg1 == "human" && arg2.substr(0, arg2.size() - 3) == "computer") {
         Player* white = new Human("white", &game);
         Player* black = new Computer("black", &game, stoi(arg2.substr(9, arg2.size() - 10)));
-
-        game.reset();
-        board.display();
-
-        while(game.getState() != game.GAME_END) {
-          if (game.getState() == game.WHITE_TURN) {
-            white->makeMove();
-          }
-
-          else if (game.getState() == game.BLACK_TURN) {
-            black->makeMove();
-          }
-        }
+        game.gameLoop(white, black);
 
       }
 
       else if (arg2 == "human" && arg1.substr(0, arg1.size() - 3) == "computer") {
         Player* white = new Computer("white", &game, stoi(arg1.substr(9, arg1.size() - 10)));
         Player* black = new Human("black", &game);
-
-        game.reset();
-        board.display();
-
-        while(game.getState() != game.GAME_END) {
-          if (game.getState() == game.WHITE_TURN) {
-            white->makeMove();
-          }
-
-          else if (game.getState() == game.BLACK_TURN) {
-            black->makeMove();
-          }
-
-
-        }
+        game.gameLoop(white, black);
         
       }
       else {

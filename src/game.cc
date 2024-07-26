@@ -301,6 +301,22 @@ void Game::end() {
     state = GAME_END;
 }
 
+void Game::gameLoop(Player* white, Player* black) {
+    reset();
+    theBoard->display();
+
+    while(getState() != GAME_END) {
+    if (getState() == WHITE_TURN) {
+        white->makeMove();
+    }
+
+    else if (getState() == BLACK_TURN) {
+        black->makeMove();
+    }
+
+    }
+}
+
 void Game::reset() {
     state = WHITE_TURN;
     theBoard->wipe();

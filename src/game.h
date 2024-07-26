@@ -4,8 +4,11 @@
 #include <vector>
 #include <string>
 #include "board.h"
+#include "player.h"
 
 using namespace std;
+
+class Player;
 
 class Game {
     public:
@@ -35,6 +38,7 @@ class Game {
         bool isCheckmate();
         void end();
         bool isStalemate();
+        void gameLoop(Player* white, Player* black);
         vector<string> validMoves(string start);
         string whoseTurn();
 };
