@@ -46,9 +46,30 @@ void Human::makeMove() const {
                     arg3[1] = arg1[1] - 1;
                     game->getBoard()->getPiece(arg3)->setEnPassant(convertPosition(arg3));
                 }
-                Piece* p = game->getBoard()->getPiece(arg1);
-                game->getBoard()->removePiece(arg2);
-                p->move(arg2);
+                if (game->isPromoting(arg1, arg2)) {
+                    cout << "Pawn promotion! Choose a piece: (q, r, b, n)" << endl;
+                    char promo;
+                    while (cin >> promo) {
+                        promo = tolower(promo);
+                        if (promo != 'q' && promo != 'r' && promo != 'b' && promo != 'n') {
+                        cout << "Invalid promotion" << endl;
+                        } else {
+                        game->getBoard()->removePiece(arg2);
+                        if (isupper(game->getBoard()->getPiece(arg1)->getChar())) {
+                            game->getBoard()->addPiece(toupper(promo), arg2);
+                        } else {
+                            game->getBoard()->addPiece(promo, arg2);
+                        }
+                        game->getBoard()->removePiece(arg1);
+                        break;
+                        }
+                    }
+                    } else {
+                        Piece* p = game->getBoard()->getPiece(arg1);
+                        game->getBoard()->removePiece(arg2);
+                        p->move(arg2);
+                    }
+
                 game->nextTurn();
                 game->getBoard()->display();
                 game->updateCheck();
@@ -57,8 +78,19 @@ void Human::makeMove() const {
             } else {cout << "Invalid command" << endl;}
         }
 
+        else if (command == "threat") {
+            cin >> arg1;
+            cerr << arg1 << " threatened: " << game->isThreatened(arg1) << endl;
+            game->getBoard()->display();
+        }
+
         else if (command == "resign") {
             game->end();
+            if (game->whoseTurn() == "white") {
+                cout << "Resignation! Black wins!" << endl;
+            } else {
+                cout << "Resignation! White wins!" << endl;
+            }
         }
     }
 }

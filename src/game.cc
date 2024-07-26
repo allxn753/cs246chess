@@ -306,15 +306,33 @@ void Game::gameLoop(Player* white, Player* black) {
     theBoard->display();
 
     while(getState() != GAME_END) {
-    if (getState() == WHITE_TURN) {
-        white->makeMove();
-    }
+        if (getState() == WHITE_TURN) {
+            white->makeMove();
+        }
 
-    else if (getState() == BLACK_TURN) {
-        black->makeMove();
-    }
+        else if (getState() == BLACK_TURN) {
+            black->makeMove();
+        }
+
+        //Checkmate
+        if (isCheckmate()) {
+            if (whoseTurn() == "white") {
+                cout << "Checkmate! Black wins!" << endl;
+                black->addScore();
+            } else {
+                cout << "Checkmate! White wins!" << endl;
+                white->addScore();
+            }
+            reset();
+        }
+        // Check
+        if (getCheck() && whoseTurn() == "white") {
+            cout << "White is in check." << endl;
+        } else if (getCheck()) cout << "Black is in check." << endl;
 
     }
+    
+    cout << "Final Score:" << endl << "White: " << white->getScore() << endl << "Black: " << black->getScore() << endl;
 }
 
 void Game::reset() {

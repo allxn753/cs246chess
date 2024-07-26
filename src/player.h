@@ -15,6 +15,7 @@ class Player {
         virtual void makeMove() const = 0;
         Board* getBoard();
         int getScore() {return score;};
+        void addScore() {score++;};
         virtual ~Player();
 };
 
