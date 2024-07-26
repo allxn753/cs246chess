@@ -18,6 +18,7 @@ class Game {
         Game() {};
         Game(Board *);
         Board* getBoard() { return theBoard; };
+        gameState getState() {return state;};
         void reset();
         bool validMove(string pos1, string pos2);
         bool isPathObstructed(vector<int> coord1, int dX, int dY);
