@@ -54,9 +54,11 @@ int main() {
       }
 
       else if (arg2 == "human" && arg1.substr(0, arg1.size() - 3) == "computer") {
-        //Player* black = new Computer("black", game, stoi(arg1.substr(9, arg1.size() - 10)));
-        // black->makeMove();
-        // board.display();
+        Player* white = new Computer("white", &game, stoi(arg1.substr(9, arg1.size() - 10)));
+        game.reset();
+        board.display();
+        white->makeMove();
+        board.display();
       }
 
       else {
