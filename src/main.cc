@@ -21,7 +21,7 @@ int main() {
   
   string command, arg1, arg2;
   char piece;
-  int blackPoints, whitePoints;
+  float blackPoints, whitePoints;
   Piece* pieces = new Blank;
   TextDisplay* textDisplay;
 
@@ -80,7 +80,6 @@ int main() {
         }
         
       }
-
       else {
         cout << "Invalid arguments for game command" << endl;
         continue;

@@ -34,6 +34,7 @@ class Game {
         bool getCheck() {return check;}
         bool isCheckmate();
         void end();
+        bool isStalemate();
         vector<string> validMoves(string start);
         string whoseTurn();
 };

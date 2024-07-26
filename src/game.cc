@@ -115,7 +115,7 @@ bool Game::isPathObstructed(vector<int> coord1, int dX, int dY) {
     return false;
 }
 
-
+// validMoves(string start) returns a list of valid moves for the piece at start.
 vector<string> Game::validMoves(string start) {
     vector<string> moves;
     string to;
@@ -126,7 +126,7 @@ vector<string> Game::validMoves(string start) {
         }
     }
     return moves;
-}
+} // validMoves()
 
 
 bool Game::isCheckmate() {
@@ -134,16 +134,16 @@ bool Game::isCheckmate() {
     string original_pos, from, to;
     vector<string> moves;
     Decorator* p;
-    for (int i = theBoard->getArr().size() - 1; i >= 0; --i) {
+    for (int i = theBoard->getArr().size() - 1; i >= 0; --i) { // For each piece (iterating backwards)
         p = theBoard->getArr()[i];
         original_pos = convertPosition(p->getX(), p->getY());
         moves = validMoves(original_pos);
-        for (auto m: moves) {
+        for (auto m: moves) { // Lookahead every move for given piece
             p->move(m);
             updateCheck();
-            if (!check) { // Found potential move.
-                p->move(original_pos);
-                check = true;
+            if (!check) { // Found check-exiting move.
+                p->move(original_pos); // move pieces back.
+                check = true; // reset check back to original value.
                 return false;
             }
         }
@@ -172,7 +172,10 @@ void Game::updateCheck() {
 } // isInCheck()
 
 
-bool Game::isThreatened(string pos) { // Barely more efficient than just iterating over entire board. 64 vs. like 30 comparisons...
+// isThreatened(): 
+// Checks if there are any piececs threatening pos.
+// Slightly more efficient than just iterating over entire board. 64 vs. ~30 comparisons.
+bool Game::isThreatened(string pos) { 
     vector<int> coord = convertPosition(pos);
     string from;    
     for(int i = 0; i < Board::WIDTH; ++i) { // check within row
@@ -199,20 +202,18 @@ bool Game::isThreatened(string pos) { // Barely more efficient than just iterati
         if(validMove(convertPosition(coord[0] + move[1], coord[1] + move[0]), pos)) return true;
     }
     return false;
-}
+} // isThreatened(): 
 
 int Game::isCastling(string pos1, string pos2) {
     vector<int> coord1 = convertPosition(pos1);
     vector<int> coord2 = convertPosition(pos2);
     int dX = coord2[0] - coord1[0];
     int dY = coord2[1] - coord1[1];
-
     if (dY == 0 && abs(dX) == 2 && tolower(theBoard->getChar(coord1[0], coord1[1])) == 'k') {
         cerr << "Castling" << endl;
         if (dX > 0) return 1;
         if (dX < 0) return -1;
-    }
-    
+    }    
     return 0;
 }
 
@@ -220,13 +221,11 @@ int Game::isEnPassant(string pos1, string pos2) {
     vector<int> coord1 = convertPosition(pos1);
     vector<int> coord2 = convertPosition(pos2);
     int dY = coord2[1] - coord1[1];
-
     if (tolower(theBoard->getChar(coord1[0], coord1[1])) == 'p' &&
         theBoard->getPiece(coord2[0], coord2[1])->getEnPassant() == coord2) {
-            if (dY > 0) return 1;
-            if (dY < 0) return -1;
+            if (dY > 0) return 1; // White
+            if (dY < 0) return -1; // Black
         }
-
     return 0;
 }
 
@@ -234,27 +233,19 @@ int Game::isSkipping(string pos1, string pos2) {
     vector<int> coord1 = convertPosition(pos1);
     vector<int> coord2 = convertPosition(pos2);
     int dY = coord2[1] - coord1[1];
-
     if (abs(dY) == 2 && tolower(theBoard->getChar(coord1[0], coord1[1])) == 'p') {
-        if (dY > 0) return 1;
-        if (dY < 0) return -1;
+        if (dY > 0) return 1; // White
+        if (dY < 0) return -1; // Black
     }
-
     return 0;
 }
 
+
 bool Game::isPromoting(string pos1, string pos2) {
     vector<int> coord1 = convertPosition(pos1);
-    vector<int> coord2 = convertPosition(pos2);
-    
-    if (theBoard->getChar(coord1[0], coord1[1]) == 'P') {
-        if (coord2[1] == 7) return true;
-    }
-
-    if (theBoard->getChar(coord1[0], coord1[1]) == 'p') {
-        if (coord2[1] == 0) return true;
-    }
-
+    vector<int> coord2 = convertPosition(pos2);    
+    if (theBoard->getChar(coord1[0], coord1[1]) == 'P' && (coord2[1] == 7)) return true;
+    if (theBoard->getChar(coord1[0], coord1[1]) == 'p' && (coord2[1] == 0)) return true;
     return false;
 }
 
@@ -274,13 +265,11 @@ bool Game::validSetup() {
         if (p->getChar() == 'k') seenBlackKing = true;
     }
     if (!seenWhiteKing || !seenBlackKing) return false;
-
     // No pawns on last rows.
     for (int i = 0; i < Board::WIDTH; ++i) {
         if (tolower(theBoard->getChar(i, 0) == 'p')) return false; // cerr << "Invalid setup: missing white king"<< endl;
         if (tolower(theBoard->getChar(i, Board::HEIGHT - 1) == 'p')) return false; // cerr << "Invalid setup: missing white king"<< endl; 
     }
-
     // Not in check.
     updateCheck();
     if (check) {return false;}
@@ -291,9 +280,15 @@ bool Game::validSetup() {
     return true;
 }
 
-void Game::setState(string colour) {
-    if (colour == "white") state = WHITE_TURN;
-    else if (colour == "black") state = BLACK_TURN;
+void Game::setState(string state) {
+    if (state == "white") state = WHITE_TURN;
+    else if (state == "black") state = BLACK_TURN;
+    else if (state == "end") state = GAME_END;
+    else if (state == "setup") state = SETUP;
+}
+
+bool Game::isStalemate() {
+    return false;
 }
 
 string Game::whoseTurn() {
