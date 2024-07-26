@@ -25,7 +25,8 @@ class Game {
         bool isPromoting(string pos1, string pos2);
         bool isThreatened(string pos);
         void nextTurn();
-        bool isInCheck();
+        bool isInCheck(string colour);
+        string whoseTurn();
 };
 
 #endif
