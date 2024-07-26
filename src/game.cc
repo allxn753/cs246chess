@@ -123,17 +123,19 @@ bool Game::isPathObstructed(vector<int> coord1, int dX, int dY) {
     return false;
 }
 
-bool Game::isInCheck() {
+void Game::updateCheck(string colour) {
     char king;
     string pos;
     Decorator * curr;
-    if (state == WHITE_TURN) king = 'K';
-    else if (state == BLACK_TURN) king = 'k';
+    if (colour == "white") king = 'K';
+    else if (colour == "black") king = 'k';
     for(int i = 0; i < theBoard->arr.size(); ++i) {
         curr = theBoard->arr[i];
         if(curr->getChar() == king) { // found king
             pos = convertPosition(curr->getX(), curr->getY());
-            return isThreatened(pos);
+            nextTurn();
+            check = isThreatened(pos);
+            nextTurn();
         } // found king
     } // for
 } // isInCheck()
@@ -209,6 +211,11 @@ void Game::nextTurn() {
 }
 
 
+string Game::whoseTurn() {
+    if (state == WHITE_TURN) return "white";
+    else if (state == BLACK_TURN) return "black";
+    else return "Invalid Turn";
+}
 
 void Game::reset() {
     state = WHITE_TURN;
