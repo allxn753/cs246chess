@@ -1,5 +1,6 @@
 #include "game.h"
 #include "helpers.h"
+#include "player.h"
 
 Game::Game(Board* brd): theBoard{brd}{}
 
@@ -28,10 +29,10 @@ bool Game::validMove(string pos1, string pos2) {
                 if (dY == 0) {
                     if (dX == 2) {
                         if (!theBoard->getPiece(coord1[0], 7)->getHasMoved() && tolower(theBoard->getPiece(7, coord1[1])->getChar()) == 'r' &&
-                            !isPathObstructed(coord1, 7 - coord1[0], dY) && !check) return true;
+                            !isPathObstructed(coord1, 7 - coord1[0], dY) && !checked) return true;
                     } else if (dX == -2) {
                         if (!theBoard->getPiece(coord1[0], 0)->getHasMoved() && tolower(theBoard->getPiece(0, coord1[1])->getChar()) == 'r' &&
-                            !isPathObstructed(coord1, 0 - coord1[0], dY) && !check) return true;
+                            !isPathObstructed(coord1, 0 - coord1[0], dY) && !checked) return true;
                     }
                 }
             }
@@ -129,8 +130,8 @@ vector<string> Game::validMoves(string start) {
 } // validMoves()
 
 
-bool Game::isCheckmate() {
-    if (check == false) return false; // King must be threatened and no escape moves.
+void Game::updateCheckmate() {
+    if (checked == false) {checkmated = false; return;} // King must be threatened and no escape moves.
     string original_pos, from, to;
     vector<string> moves;
     Decorator* p;
@@ -141,17 +142,18 @@ bool Game::isCheckmate() {
         for (auto m: moves) { // Lookahead every move for given piece
             p->move(m);
             updateCheck();
-            if (!check) { // Found check-exiting move.
+            if (!checked) { // Found check-exiting move.
                 p->move(original_pos); // move pieces back.
-                check = true; // reset check back to original value.
-                return false;
+                checked = true; // reset check back to original value.
+                checkmated = false;
+                return;
             }
         }
         p->move(original_pos);
     }
-    check = true;
-    return true;
-} // isInCheck()
+    checked = true;
+    checkmated = true;
+} // updateCheckmate()
 
 
 void Game::updateCheck() {
@@ -165,11 +167,11 @@ void Game::updateCheck() {
         if(curr->getChar() == king) { // found king
             pos = convertPosition(curr->getX(), curr->getY());
             nextTurn(); // Have to swap the turn to the other player because otherwise no moves would be valid anyway.
-            check = isThreatened(pos);
+            checked = isThreatened(pos);
             nextTurn(); // Swap player back. Only works for 2 player game.
         } // found king
     } // for
-} // isInCheck()
+} // updateCheck()
 
 
 // isThreatened(): 
@@ -251,7 +253,7 @@ bool Game::isPromoting(string pos1, string pos2) {
 
 void Game::nextTurn() {
     if (state == WHITE_TURN) state = BLACK_TURN;
-    else state = WHITE_TURN;
+    else if (state == BLACK_TURN) state = WHITE_TURN;
 }
 
 bool Game::validSetup() {
@@ -272,24 +274,64 @@ bool Game::validSetup() {
     }
     // Not in check.
     updateCheck();
-    if (check) {return false;}
+    if (checked) {return false;}
     nextTurn(); // See if other player is in check
     updateCheck();
     nextTurn();
-    if (check) {return false;}
+    if (checked) {return false;}
     return true;
 }
 
-void Game::setState(string state) {
-    if (state == "white") state = WHITE_TURN;
-    else if (state == "black") state = BLACK_TURN;
-    else if (state == "end") state = GAME_END;
-    else if (state == "setup") state = SETUP;
+
+
+void Game::setState(string cmd) {
+    if (cmd == "white") state = WHITE_TURN;
+    else if (cmd == "black") state = BLACK_TURN;
+    else if (cmd == "end") state = GAME_END;
+    else if (cmd == "setup") state = SETUP;
 }
 
-bool Game::isStalemate() {
-    return false;
+// Makes current player resign.
+void Game::resign() {
+    resigned = true;
 }
+
+void Game::updateStalemate() {
+    stalemated = false;
+}
+
+void Game::updateGameState(Player* white, Player* black) {
+    bool whiteTurn = (state == Game::WHITE_TURN);
+    updateCheck();
+    updateCheckmate();
+    updateStalemate();
+    updateScore(white, black);
+    if(resigned || checkmated) {
+        if (checkmated) {
+            cout << "Checkmate! ";
+        }
+        if (whiteTurn) cout << "Black";
+        else cout << "White";
+        cout << " wins!" << endl;
+        state = GAME_END;
+    } else if (stalemated) {
+        cout << "Stalemate!" << endl;
+        state = GAME_END;
+    }  else if (checked) {
+        if (whiteTurn) cout << "White";
+        else cout << "Black";
+        cout << " is in check." << endl;
+    }
+}
+
+void Game::updateScore(Player* white, Player* black) {
+    
+    if (state != Game::GAME_END) return;
+    if ((resigned || checkmated) &&  state == Game::WHITE_TURN) black->addScore(1); 
+    if ((resigned || checkmated) &&  state == Game::BLACK_TURN) white->addScore(1);
+    if (stalemated) {white->addScore(0.5); black->addScore(0.5);}
+}
+
 
 string Game::whoseTurn() {
     if (state == WHITE_TURN) return "white";
@@ -297,9 +339,13 @@ string Game::whoseTurn() {
     else return "Invalid Turn";
 }
 
-void Game::reset() {
+void Game::reset(bool blank) {
     state = WHITE_TURN;
+    checked = false;
+    checkmated = false;
+    stalemated = false;
     theBoard->wipe();
+    if(blank) return;
     // Speeds up isInCheck();
     theBoard->addPiece('K', "e1");
     theBoard->addPiece('k', "e8");

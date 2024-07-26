@@ -8,13 +8,14 @@ class Player : public Game {
     protected:
         string playerColour;
         Game* game;
-        unsigned int score = 0;
+        float score = 0;
 
     public:
         Player(string playerColour, Game* game);
         virtual void makeMove() const = 0;
         Board* getBoard();
-        int getScore() {return score;};
+        float getScore() {return score;};
+        void addScore(float p) {score += p;};
         virtual ~Player();
 };
 
