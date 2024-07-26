@@ -29,8 +29,7 @@ int main() {
   
   string command, arg1, arg2;
   char piece;
-  int x, y;
-
+  int blackPoints, whitePoints;
   Piece* pieces = new Blank;
   TextDisplay* textDisplay;
 
@@ -136,8 +135,15 @@ int main() {
 
     else if (command == "resign") {
       // calling resign function to end game
-      cout << "resign" << endl;
-      break;
+      if (game.whoseTurn() == "white") {
+        cout << "Checkmate! Black wins!" << endl;
+        ++blackPoints;
+      } else {
+        cout << "Checkmate! White wins!" << endl;
+        ++whitePoints;
+      }
+      game.reset();
+      continue;
     } else if (command == "threat") {
       // move pieces on the board
       cin >> arg1; // >> piece; // start end promotion (e7 e8 Q)
@@ -146,11 +152,25 @@ int main() {
     } else if (command == "move") {
       // move pieces on the board
       cin >> arg1 >> arg2; // >> piece; // start end promotion (e7 e8 Q)
-      if(game.validMove(arg1, arg2)) {
-        // Check if move escapes check
-        if (game.getCheck()) {
-          
+      if(game.validMove(arg1, arg2)) {        
+        // Is player in check after move
+        Piece * p1 = game.getBoard()->getPiece(arg1);
+        Piece * p2 = game.getBoard()->getPiece(arg2);
+        bool prevCheck = game.getCheck();
+        if (p2->getChar() != ' ' && p2->getChar() != '_') {
+          cerr << "Moving p2 to safe spot" << endl;
+          p2->move(Board::WIDTH, Board::HEIGHT);
         }
+        p1->move(arg2);
+        game.updateCheck();
+        p1->move(arg1);
+        p2->move(arg2);
+        if (game.getCheck()) {
+          game.updateCheck();
+          cout << "Invalid move: Player is in check" << endl;
+          continue;        
+        }
+        game.updateCheck();
         if (game.isCastling(arg1, arg2) == 1) {
           string arg3 = arg1;
           arg3[0] = 'h';
@@ -216,10 +236,17 @@ int main() {
         board.display();
         game.updateCheck();
         // Checkmate
-        if (game.isCheckmate() && (game.whoseTurn() == "white")) {
-          cout << "Checkmate! Black wins!" << endl;
-        } else if (game.isCheckmate()) cout << "Checkmate! Black wins!" << endl;
-        
+        if (game.isCheckmate()) {
+          if (game.whoseTurn() == "white") {
+            cout << "Checkmate! Black wins!" << endl;
+            ++blackPoints;
+          } else {
+            cout << "Checkmate! White wins!" << endl;
+            ++whitePoints;
+          }
+          game.reset();
+          continue;
+        }
         // Check
         if (game.getCheck() && game.whoseTurn() == "white") {
           cout << "White is in check." << endl;
@@ -260,8 +287,6 @@ int main() {
 
   } // while
 
-  //  output score /*
-  // score.print()?
-  // */
+  cout << "Final Score:" << endl << "White: " << whitePoints << endl << "Black: " << blackPoints << endl;
   board.detach(textDisplay);
 } // main
