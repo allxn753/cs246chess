@@ -3,6 +3,8 @@
 #include <string>
 #include "game.h"
 #include "board.h"
+#include "player.h"
+#include "computer.h"
 #include "piece.h"
 #include "textDisplay.h"
 #include "blank.h"
@@ -40,9 +42,21 @@ int main() {
       // starting a new game
       cin >> arg1 >> arg2; // white-player black-player
 
-      if (arg1 == arg2 && arg1 == "human") {
-        game.reset();
-        board.display();
+      if (arg1 == arg2) {
+        if (arg1 == "human"){
+          game.reset();
+          board.display();
+        }
+      }
+
+      else if (arg1 == "human" && arg2.substr(0, arg2.size() - 3) == "computer") {
+        //Player* black = new Computer("black", game, stoi(arg2.substr(9, arg2.size() - 10)));
+      }
+
+      else if (arg2 == "human" && arg1.substr(0, arg1.size() - 3) == "computer") {
+        //Player* black = new Computer("black", game, stoi(arg1.substr(9, arg1.size() - 10)));
+        // black->makeMove();
+        // board.display();
       }
 
       else {
@@ -80,11 +94,14 @@ int main() {
         Piece* p = board.getPiece(arg1);
         board.removePiece(arg2);
         p->move(arg2);
-        game.nextTurn();
+        game.nextTurn();  
         board.display();
+        game.updateCheck(game.whoseTurn());
+        cerr << game.getCheck() << endl;
       } else { cout << "Invalid move" << endl; }
     }    
     else if (command == "setup") {
+      board.wipe();
       while (cin >> command) {
         if (command == "+") {
           cin >> piece >> arg2; // piece end (K e1)
@@ -99,20 +116,14 @@ int main() {
         } else if (command == "p") {
           cin >> arg1;
           board.print(arg1);
-        }
-        
-        else if (command == "done") {
+        } else if (command == "done") {
           break;
         } else { cout << "Invalid command" << endl; }
       }
     } // setup mode
-    else if (command == "wipe") {
-      game.getBoard()->wipe();
-      board.display();
-    }
     else { cout << "Invalid command" << endl; }
 
   } // while
-  // output score!!
+  // output score
   board.detach(textDisplay);
 } // main

@@ -2,6 +2,7 @@
 #include "helpers.h"
 
 Game::Game(Board* brd): theBoard{brd}{}
+
 bool Game::validMove(string pos1, string pos2) {
     vector<int> coord1 = convertPosition(pos1);
     vector<int> coord2 = convertPosition(pos2);
@@ -117,6 +118,24 @@ bool Game::isPathObstructed(vector<int> coord1, int dX, int dY) {
     return false;
 }
 
+void Game::updateCheck(string colour) {
+    char king;
+    string pos;
+    Decorator * curr;
+    if (colour == "white") king = 'K';
+    else if (colour == "black") king = 'k';
+    for(int i = 0; i < theBoard->arr.size(); ++i) {
+        curr = theBoard->arr[i];
+        if(curr->getChar() == king) { // found king
+            pos = convertPosition(curr->getX(), curr->getY());
+            nextTurn();
+            check = isThreatened(pos);
+            nextTurn();
+        } // found king
+    } // for
+} // isInCheck()
+
+
 bool Game::isThreatened(string pos) {
     vector<int> coord = convertPosition(pos);
     string from;    
@@ -187,15 +206,23 @@ void Game::nextTurn() {
 }
 
 
+string Game::whoseTurn() {
+    if (state == WHITE_TURN) return "white";
+    else if (state == BLACK_TURN) return "black";
+    else return "Invalid Turn";
+}
 
 void Game::reset() {
     state = WHITE_TURN;
     theBoard->wipe();
+    // Speeds up isInCheck();
+    theBoard->addPiece('K', "e1");
+    theBoard->addPiece('k', "e8");
+    // Kings guarenteed to not be deleted.
     theBoard->addPiece('R', "a1");
     theBoard->addPiece('N', "b1");
     theBoard->addPiece('B', "c1");
-    theBoard->addPiece('Q', "d1");
-    theBoard->addPiece('K', "e1");
+    theBoard->addPiece('Q', "d1");    
     theBoard->addPiece('B', "f1");
     theBoard->addPiece('N', "g1");
     theBoard->addPiece('R', "h1");
@@ -210,8 +237,7 @@ void Game::reset() {
     theBoard->addPiece('r', "a8");
     theBoard->addPiece('n', "b8");
     theBoard->addPiece('b', "c8");
-    theBoard->addPiece('q', "d8");
-    theBoard->addPiece('k', "e8");
+    theBoard->addPiece('q', "d8");    
     theBoard->addPiece('b', "f8");
     theBoard->addPiece('n', "g8");
     theBoard->addPiece('r', "h8");
