@@ -39,8 +39,16 @@ int main() {
     if (command == "game") {
       // starting a new game
       cin >> arg1 >> arg2; // white-player black-player
-      game.reset();
-      board.display();
+
+      if (arg1 == arg2 && arg1 == "human") {
+        game.reset();
+        board.display();
+      }
+
+      else {
+        cout << "Invalid arguments for game command" << endl;
+        continue;
+      }
     }
 
     else if (command == "resign") {
