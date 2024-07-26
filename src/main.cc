@@ -164,6 +164,7 @@ int main() {
           arg3[0] = arg1[0] - 1;
           r->move(arg3);
         }
+
         if (game.isEnPassant(arg1, arg2) == 1) {
           string arg3 = arg2;
           arg3[1] = arg2[1] - 1;
@@ -174,7 +175,9 @@ int main() {
           arg3[1] = arg2[1] + 1;
           board.removePiece(arg3);
         }
+
         board.getArr()[0]->setEnPassant({8, 8});
+
         if (game.isSkipping(arg1, arg2) == 1) {
           string arg3 = arg1;
           arg3[1] = arg1[1] + 1;
@@ -184,9 +187,31 @@ int main() {
           arg3[1] = arg1[1] - 1;
           board.getPiece(arg3)->setEnPassant(convertPosition(arg3));
         }
-        Piece* p = board.getPiece(arg1);
-        board.removePiece(arg2);
-        p->move(arg2);
+
+        if (game.isPromoting(arg1, arg2)) {
+          cout << "Pawn promotion! Choose a piece: (q, r, b, n)" << endl;
+          char promo;
+          while (cin >> promo) {
+            promo = tolower(promo);
+            if (promo != 'q' && promo != 'r' && promo != 'b' && promo != 'n') {
+              cout << "Invalid promotion" << endl;
+            } else {
+              board.removePiece(arg2);
+              if (isupper(board.getPiece(arg1)->getChar())) {
+                board.addPiece(toupper(promo), arg2);
+              } else {
+                board.addPiece(promo, arg2);
+              }
+              board.removePiece(arg1);
+              break;
+            }
+          }
+        } else {
+          Piece* p = board.getPiece(arg1);
+          board.removePiece(arg2);
+          p->move(arg2);
+        }
+        
         game.nextTurn();  
         board.display();
         game.updateCheck();
