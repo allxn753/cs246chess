@@ -8,7 +8,6 @@ void Human::makeMove() const {
     string command, arg1, arg2;
 
     while(cin >> command) {
-
         if (command == "move") {
             // move pieces on the board
             cin >> arg1 >> arg2; // >> piece; // start end promotion (e7 e8 Q)
@@ -26,7 +25,7 @@ void Human::makeMove() const {
                 if (game->getCheck()) {
                     game->updateCheck();
                     cout << "Invalid move: Move causes player to be in check" << endl;
-                    continue;
+                    break;
                 }
                 game->updateCheck();
                 if (game->isCastling(arg1, arg2) == 1) {
@@ -80,7 +79,6 @@ void Human::makeMove() const {
                                 game->getBoard()->addPiece(promo, arg2);
                             }
                         game->getBoard()->removePiece(arg1);
-                        break;
                         }
                     } // while
                 } else {
@@ -90,7 +88,9 @@ void Human::makeMove() const {
                 }
                 game->nextTurn();  
                 game->getBoard()->display();        
-                break;    
+                break;   
+            } else {
+                cout << "Invalid Move" << endl;
             }
         } else if (command == "resign") {
             game->resign();

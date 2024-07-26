@@ -350,7 +350,6 @@ void Game::gameLoop(Player* white, Player* black) {
         //Checkmate
         updateGame(white, black);
     }    
-    std::cout << "Final Score:" << endl << "White: " << white->getScore() << endl << "Black: " << black->getScore() << endl;
 }
 
 void Game::reset(bool blank) {

@@ -35,28 +35,28 @@ int main() {
 
       if (arg1 == arg2) {
         if (arg1 == "human"){
-          Player* white = new Human("white", &game);
-          Player* black = new Human("black", &game);
+          white = new Human("white", &game);
+          black = new Human("black", &game);
           game.gameLoop(white, black);
         }
 
         if (arg1.substr(0, arg1.size() - 3) == "computer"){
-          Player* white = new Computer("white", &game, stoi(arg1.substr(9, arg2.size() - 10)));
-          Player* black = new Computer("black", &game, stoi(arg2.substr(9, arg2.size() - 10)));
+          white = new Computer("white", &game, stoi(arg1.substr(9, arg2.size() - 10)));
+          black = new Computer("black", &game, stoi(arg2.substr(9, arg2.size() - 10)));
           game.gameLoop(white, black);
         }
       }
 
       else if (arg1 == "human" && arg2.substr(0, arg2.size() - 3) == "computer") {
-        Player* white = new Human("white", &game);
-        Player* black = new Computer("black", &game, stoi(arg2.substr(9, arg2.size() - 10)));
+        white = new Human("white", &game);
+        black = new Computer("black", &game, stoi(arg2.substr(9, arg2.size() - 10)));
         game.gameLoop(white, black);
 
       }
 
       else if (arg2 == "human" && arg1.substr(0, arg1.size() - 3) == "computer") {
-        Player* white = new Computer("white", &game, stoi(arg1.substr(9, arg1.size() - 10)));
-        Player* black = new Human("black", &game);
+        white = new Computer("white", &game, stoi(arg1.substr(9, arg1.size() - 10)));
+        black = new Human("black", &game);
         game.gameLoop(white, black);
         
       }
@@ -95,5 +95,6 @@ int main() {
     else { std::cout << "Invalid command: 1" << endl; }
 
   } // while
+  std::cout << "Final Score:" << endl << "White: " << white->getScore() << endl << "Black: " << black->getScore() << endl;
   board.detach(textDisplay);
 } // main
