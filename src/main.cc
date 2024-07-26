@@ -65,7 +65,6 @@ int main() {
         }
         
       }
-
       else {
         cout << "Invalid arguments for game command" << endl;
         continue;

@@ -280,13 +280,14 @@ bool Game::validSetup() {
     return true;
 }
 
-void Game::setState(string colour) {
-    if (colour == "white") state = WHITE_TURN;
-    else if (colour == "black") state = BLACK_TURN;
+void Game::setState(string state) {
+    if (state == "white") state = WHITE_TURN;
+    else if (state == "black") state = BLACK_TURN;
+    else if (state == "end") state = GAME_END;
+    else if (state == "setup") state = SETUP;
 }
 
 bool Game::isStalemate() {
-    for
     return false;
 }
 
