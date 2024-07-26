@@ -51,6 +51,14 @@ Piece* Board::getPiece(string pos) {
     return pieces->pieceAt(coord[0], coord[1]);
 }
 
+vector<Decorator*> Board::getArr() {
+    return arr;
+}
+
+int Board::getNumPieces() {
+    return numPieces;
+}
+
 char Board::getChar(int x, int y) const {
     return pieces->pieceAt(x, y)->getChar();
 }

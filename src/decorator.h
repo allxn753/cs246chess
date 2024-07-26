@@ -24,6 +24,7 @@ class Decorator: public Piece {
         virtual void move(int x, int y) override {this->x = x; this->y = y;}
         virtual void move(string) override;
         virtual bool getHasMoved() {return hasMoved;}
+        virtual string getColour() {return colour;}
         
 };
 

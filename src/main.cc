@@ -3,6 +3,8 @@
 #include <string>
 #include "game.h"
 #include "board.h"
+#include "player.h"
+#include "computer.h"
 #include "piece.h"
 #include "textDisplay.h"
 #include "blank.h"
@@ -40,9 +42,11 @@ int main() {
       // starting a new game
       cin >> arg1 >> arg2; // white-player black-player
 
-      if (arg1 == arg2 && arg1 == "human") {
-        game.reset();
-        board.display();
+      if (arg1 == arg2) {
+        if (arg1 == "human"){
+          game.reset();
+          board.display();
+        }
       }
 
       else {

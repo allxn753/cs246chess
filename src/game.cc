@@ -2,6 +2,7 @@
 #include "helpers.h"
 
 Game::Game(Board* brd): theBoard{brd}{}
+
 bool Game::validMove(string pos1, string pos2) {
     vector<int> coord1 = convertPosition(pos1);
     vector<int> coord2 = convertPosition(pos2);

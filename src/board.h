@@ -37,6 +37,8 @@ class Board : public Subject {
         void removePiece(string pos);
         Piece* getPiece(int x, int y);
         Piece* getPiece(string);
+        vector<Decorator*> getArr();
+        int getNumPieces();
         char getChar(int x, int y) const;
         void print(string pos);
         void wipe();
