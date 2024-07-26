@@ -459,3 +459,5 @@ void Game::reset(bool blank) {
     theBoard->addPiece('p', "g7");
     theBoard->addPiece('p', "h7");
 }
+
+Game::~Game() {delete theBoard;}

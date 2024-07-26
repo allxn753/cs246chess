@@ -56,8 +56,7 @@ int main() {
       else if (arg2 == "human" && arg1.substr(0, arg1.size() - 3) == "computer") {
         white = new Computer("white", &game, stoi(arg1.substr(9, arg1.size() - 10)));
         black = new Human("black", &game);
-        game.gameLoop(white, black);
-        
+        game.gameLoop(white, black);        
       }
       else {
         cout << "Invalid arguments for game command" << endl;

@@ -23,6 +23,7 @@ class Game {
     public:        
         Game() {};
         Game(Board *);
+        ~Game();
 
         // Accessors Methods
         Board* getBoard() { return theBoard;}
