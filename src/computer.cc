@@ -32,6 +32,9 @@ void Computer::makeMove() const {
                     arg2 = convertPosition(i, j);
                     // cerr << arg1 << " " << arg2 << endl;
                     if (game->validMove(arg1, arg2)) {
+                        if (tolower(game->getBoard()->getPiece(arg1)->getChar()) == 'k' || tolower(game->getBoard()->getPiece(arg1)->getChar()) == 'K')  {
+                            cerr << "King Move" << endl;
+                        }
                         // Is player in check after move
                         Piece * p1 = game->getBoard()->getPiece(arg1);
                         Piece * p2 = game->getBoard()->getPiece(arg2);
@@ -44,6 +47,7 @@ void Computer::makeMove() const {
                         p2->move(arg2);
                         if (game->getCheck()) {
                             game->updateCheck();
+                            continue;
                         } else {
                             game->updateCheck();
                             game->performMove(arg1, arg2);

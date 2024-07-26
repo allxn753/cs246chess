@@ -335,7 +335,7 @@ void Game::updateGame(Player* white, Player* black) {
     }
 }
 
-void Game::performMove(string arg1, string arg2) {
+void Game::performMove(string arg1, string arg2, char promo) {
     if (isCastling(arg1, arg2) == 1) {
         string arg3 = arg1;
         arg3[0] = 'h';
@@ -369,23 +369,32 @@ void Game::performMove(string arg1, string arg2) {
         arg3[1] = arg1[1] - 1;
         getBoard()->getPiece(arg3)->setEnPassant(convertPosition(arg3));
     }
-    if (isPromoting(arg1, arg2)) {
-        cout << "Pawn promotion! Choose a piece: (q, r, b, n)" << endl;
-        char promo;
-        while (cin >> promo) {
-            promo = tolower(promo);
-            if (promo != 'q' && promo != 'r' && promo != 'b' && promo != 'n') {
-                cout << "Invalid promotion" << endl;
-            } else {
-                getBoard()->removePiece(arg2);
+    if (isPromoting(arg1, arg2)) {        
+        if (promo == 'q' || promo == 'r'|| promo == 'b' || promo == 'n') { // for computer players
+            getBoard()->removePiece(arg2);
                 if (isupper(getBoard()->getPiece(arg1)->getChar())) {
                     getBoard()->addPiece(toupper(promo), arg2);
                 } else {
                     getBoard()->addPiece(promo, arg2);
                 }
             getBoard()->removePiece(arg1);
-            }
-        } // while
+        } else {
+            while (cin >> promo) {
+                cout << "Pawn promotion! Choose a piece: (q, r, b, n)" << endl;
+                promo = tolower(promo);
+                if (promo != 'q' && promo != 'r' && promo != 'b' && promo != 'n') {
+                    cout << "Invalid promotion" << endl;
+                } else {
+                    getBoard()->removePiece(arg2);
+                    if (isupper(getBoard()->getPiece(arg1)->getChar())) {
+                        getBoard()->addPiece(toupper(promo), arg2);
+                    } else {
+                        getBoard()->addPiece(promo, arg2);
+                    }
+                getBoard()->removePiece(arg1);
+                }
+            } // while
+        }       
     } else {
         Piece* p = getBoard()->getPiece(arg1);
         getBoard()->removePiece(arg2);
@@ -394,7 +403,6 @@ void Game::performMove(string arg1, string arg2) {
     nextTurn();  
     getBoard()->display(); 
 }
-
 
 void Game::gameLoop(Player* white, Player* black) {
     theBoard->display();
