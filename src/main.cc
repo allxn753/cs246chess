@@ -23,7 +23,7 @@ int main() {
   char piece;
   Piece* pieces = new Blank;
   TextDisplay* textDisplay;
-
+  Player *white, *black;
   Board board{pieces};
   textDisplay = new TextDisplay(&board);
   Game game{&board};
@@ -66,8 +66,7 @@ int main() {
       }
     }
     else if (command == "setup") {
-      board.wipe();
-      game.setState("white");
+      game.reset(true);
       while (cin >> command) {
         if (command == "+") {
           cin >> piece >> arg2; // piece end (K e1)
@@ -80,7 +79,7 @@ int main() {
         } else if (command == "=") {
           cin >> arg1; // colour (black)
           if (arg1 != "white" && arg1 != "black") {
-            cout << "Invalid colour" << endl; continue;
+            std::cout << "Invalid colour" << endl; continue;
           } else {
             game.setState(arg1);
           }          
@@ -90,10 +89,10 @@ int main() {
         } else if (command == "done") { // done
           if(game.validSetup()) break;
           else {cerr << "Invalid setup" << endl; continue;}
-        } else { cout << "Invalid command" << endl; } //invalid command
+        } else { std::cout << "Invalid command: 2" << endl; } //invalid command
       }
     } // setup mode
-    else { cout << "Invalid command" << endl; }
+    else { std::cout << "Invalid command: 1" << endl; }
 
   } // while
   board.detach(textDisplay);
