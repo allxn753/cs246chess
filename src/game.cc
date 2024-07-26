@@ -123,6 +123,13 @@ bool Game::isPathObstructed(vector<int> coord1, int dX, int dY) {
     return false;
 }
 
+
+bool Game::isCheckmate(string colour) {
+    
+    return false;
+} // isInCheck()
+
+
 void Game::updateCheck(string colour) {
     char king;
     string pos;
@@ -133,9 +140,9 @@ void Game::updateCheck(string colour) {
         curr = theBoard->arr[i];
         if(curr->getChar() == king) { // found king
             pos = convertPosition(curr->getX(), curr->getY());
-            nextTurn();
+            nextTurn(); // Have to swap the turn to the other player because otherwise no moves would be valid anyway.
             check = isThreatened(pos);
-            nextTurn();
+            nextTurn(); // Swap player back. Only works for 2 player game.
         } // found king
     } // for
 } // isInCheck()

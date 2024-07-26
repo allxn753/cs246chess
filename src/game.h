@@ -28,6 +28,7 @@ class Game {
         void nextTurn();
         void updateCheck(string colour);
         bool getCheck() {return check;}
+        bool isCheckmate(string colour);
         string whoseTurn();
 };
 
