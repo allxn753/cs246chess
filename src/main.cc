@@ -50,13 +50,11 @@ int main() {
     } else if (command == "threat") {
       // move pieces on the board
       cin >> arg1; // >> piece; // start end promotion (e7 e8 Q)
-      cerr << arg1 << ": " << game.isThreatened(arg1) << endl;
       board.display();
     } else if (command == "move") {
       // move pieces on the board
       cin >> arg1 >> arg2; // >> piece; // start end promotion (e7 e8 Q)
       if(game.validMove(arg1, arg2)) {
-        cerr << "Moving Piece" << endl;
         Piece* p = board.getPiece(arg1);
         board.removePiece(arg2);
         p->move(arg2);
