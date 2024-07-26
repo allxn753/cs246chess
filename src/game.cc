@@ -34,9 +34,11 @@ bool Game::validMove(string pos1, string pos2) {
             if (!theBoard->getPiece(coord1[0], coord1[1])->getHasMoved()) {
                 if (dY == 0) {
                     if (dX == 2) {
-                        if (!theBoard->getPiece(coord1[0], 7)->getHasMoved() && theBoard->getPiece(coord1[0], 7)->getChar() == 'r') return true;
+                        if (!theBoard->getPiece(coord1[0], 7)->getHasMoved() && theBoard->getPiece(coord1[0], 7)->getChar() == 'r' &&
+                            !isPathObstructed(coord1, 7 - coord1[0], dY)) return true;
                     } else if (dX == -2) {
-                        if (!theBoard->getPiece(coord1[0], 0)->getHasMoved() && theBoard->getPiece(coord1[0], 0)->getChar() == 'r') return true;
+                        if (!theBoard->getPiece(coord1[0], 0)->getHasMoved() && theBoard->getPiece(coord1[0], 0)->getChar() == 'r' &&
+                            !isPathObstructed(coord1, 0 - coord1[0], dY)) return true;
                     }
                 }
             }
@@ -102,17 +104,17 @@ bool Game::isPathObstructed(vector<int> coord1, int dX, int dY) {
     else yMult = -1;
 
     if (dX == 0) {
-        for (int i = 1; i < dY; i++) {    
+        for (int i = 1; i < abs(dY); i++) {    
             if (theBoard->getPiece(coord1[0], coord1[1] + i * yMult)->getChar() != ' ' &&
                 theBoard->getPiece(coord1[0], coord1[1] + i * yMult)->getChar() != '_') return true;
         }
     } else if (dY == 0) {
-        for (int i = 1; i < dY; i++) {
+        for (int i = 1; i < abs(dX); i++) {
             if (theBoard->getPiece(coord1[0] + i * xMult, coord1[1])->getChar() != ' ' &&
                 theBoard->getPiece(coord1[0] + i * xMult, coord1[1])->getChar() != '_') return true;
         }
     } else {
-        for (int i = 1; i < dX; i++) {
+        for (int i = 1; i < abs(dX); i++) {
             if (theBoard->getPiece(coord1[0] + i * xMult, coord1[1] + i * yMult)->getChar() != ' ' &&
                 theBoard->getPiece(coord1[0] + i * xMult, coord1[1] + i * yMult)->getChar() != '_') return true;
         }
@@ -123,6 +125,34 @@ bool Game::isPathObstructed(vector<int> coord1, int dX, int dY) {
 
 bool Game::isThreatened(string pos) {
     
+}
+
+bool Game::isCastling(string pos1, string pos2) {
+    vector<int> coord1 = convertPosition(pos1);
+    vector<int> coord2 = convertPosition(pos2);
+    int dX = coord2[0] - coord1[0];
+    int dY = coord2[1] - coord1[1];
+
+    if (dY == 0 && abs(dX) == 2 && tolower(theBoard->getChar(coord1[0], coord1[1]) == 'k')) return true;
+}
+
+bool Game::isEnPassant(string pos1, string pos2) {
+    
+}
+
+bool Game::isPromoting(string pos1, string pos2) {
+    vector<int> coord1 = convertPosition(pos1);
+    vector<int> coord2 = convertPosition(pos2);
+    
+    if (theBoard->getChar(coord1[0], coord1[1]) == 'P') {
+        if (coord2[1] == 7) return true;
+    }
+
+    if (theBoard->getChar(coord1[0], coord1[1]) == 'p') {
+        if (coord2[1] == 0) return true;
+    }
+
+    return false;
 }
 
 void Game::nextTurn() {
