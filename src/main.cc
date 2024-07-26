@@ -2,18 +2,9 @@
 #include <sstream>
 #include <string>
 #include "game.h"
-#include "board.h"
-#include "player.h"
 #include "computer.h"
-#include "piece.h"
 #include "textDisplay.h"
 #include "blank.h"
-#include "pawn.h"
-#include "rook.h"
-#include "knight.h"
-#include "bishop.h"
-#include "queen.h"
-#include "king.h"
 #include "helpers.h"
 
 using namespace std;
@@ -69,7 +60,7 @@ int main() {
           while(cin >> command) {
             if (command == "move") {
               // move pieces on the board
-              cin >> arg1 >> arg2; // >> piece; // start end promotion (e7 e8 Q)
+              cin >> arg1 >> arg2;
               if(game.validMove(arg1, arg2)) {
                 if (game.isCastling(arg1, arg2) == 1) {
                   string arg3 = arg1;
@@ -156,9 +147,7 @@ int main() {
         // Is player in check after move
         Piece * p1 = game.getBoard()->getPiece(arg1);
         Piece * p2 = game.getBoard()->getPiece(arg2);
-        bool prevCheck = game.getCheck();
         if (p2->getChar() != ' ' && p2->getChar() != '_') {
-          cerr << "Moving p2 to safe spot" << endl;
           p2->move(Board::WIDTH, Board::HEIGHT);
         }
         p1->move(arg2);
@@ -167,7 +156,7 @@ int main() {
         p2->move(arg2);
         if (game.getCheck()) {
           game.updateCheck();
-          cout << "Invalid move: Player is in check" << endl;
+          cout << "Invalid move: Move causes player to be in check" << endl;
           continue;        
         }
         game.updateCheck();

@@ -160,7 +160,7 @@ void Game::updateCheck() {
     Decorator * curr;
     if (state == WHITE_TURN) king = 'K';
     else if (state == BLACK_TURN) king = 'k';
-    for(int i = 0; i < theBoard->arr.size(); ++i) {
+    for(unsigned int i = 0; i < theBoard->arr.size(); ++i) {
         curr = theBoard->arr[i];
         if(curr->getChar() == king) { // found king
             pos = convertPosition(curr->getX(), curr->getY());
