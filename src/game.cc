@@ -268,14 +268,26 @@ bool Game::validSetup() {
     bool seenWhiteKing = false;
     bool seenBlackKing = false;
     for (auto p: theBoard->getArr()) {
-        if (p->getChar() == 'K' && seenWhiteKing) return false;
-        if (p->getChar() == 'k' && seenBlackKing) return false;
+        if (p->getChar() == 'K' && seenWhiteKing) return false; // cerr << "Invalid setup: multiple white kings"<< endl;
+        if (p->getChar() == 'k' && seenBlackKing) return false; // cerr << "Invalid setup: multiple black kings"<< endl;
         if (p->getChar() == 'K') seenWhiteKing = true;
         if (p->getChar() == 'k') seenBlackKing = true;
     }
+    if (!seenWhiteKing || !seenBlackKing) return false;
+
+    // No pawns on last rows.
+    for (int i = 0; i < Board::WIDTH; ++i) {
+        if (tolower(theBoard->getChar(i, 0) == 'p')) return false; // cerr << "Invalid setup: missing white king"<< endl;
+        if (tolower(theBoard->getChar(i, Board::HEIGHT - 1) == 'p')) return false; // cerr << "Invalid setup: missing white king"<< endl; 
+    }
+
     // Not in check.
     updateCheck();
-    if (check) return false;
+    if (check) {return false;}
+    nextTurn(); // See if other player is in check
+    updateCheck();
+    nextTurn();
+    if (check) {return false;}
     return true;
 }
 

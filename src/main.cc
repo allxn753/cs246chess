@@ -148,7 +148,7 @@ int main() {
         Piece * p1 = game.getBoard()->getPiece(arg1);
         Piece * p2 = game.getBoard()->getPiece(arg2);
         if (p2->getChar() != ' ' && p2->getChar() != '_') {
-          p2->move(Board::WIDTH, Board::HEIGHT);
+          p2->move(-1, -1); // "store" p2 on an unused tile
         }
         p1->move(arg2);
         game.updateCheck();
@@ -244,6 +244,7 @@ int main() {
     }    
     else if (command == "setup") {
       board.wipe();
+      game.setState("white");
       while (cin >> command) {
         if (command == "+") {
           cin >> piece >> arg2; // piece end (K e1)
@@ -265,10 +266,7 @@ int main() {
           board.print(arg1);
         } else if (command == "done") { // done
           if(game.validSetup()) break;
-          else {
-            cout << "Invalid setup" << endl; 
-            continue;
-            }
+          else {cerr << "Invalid setup" << endl; continue;}
         } else { cout << "Invalid command" << endl; } //invalid command
       }
     } // setup mode
