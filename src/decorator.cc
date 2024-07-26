@@ -18,8 +18,8 @@ Piece* Decorator::pieceAt(string pos) {
 }
 
 char Decorator::getChar() {
-    if (colour == "white") return type;
-    else return toupper(type);
+    if (colour == "white") return toupper(type);
+    else return type;
 }
 
 void Decorator::move(string pos) {

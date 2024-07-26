@@ -14,6 +14,7 @@
 #include "bishop.h"
 #include "queen.h"
 #include "king.h"
+#include "helpers.h"
 
 using namespace std;
 
@@ -91,6 +92,26 @@ int main() {
           Piece* r = board.getPiece(arg3);
           arg3[0] = arg1[0] - 1;
           r->move(arg3);
+        }
+        if (game.isEnPassant(arg1, arg2) == 1) {
+          string arg3 = arg2;
+          arg3[1] = arg2[1] - 1;
+          board.removePiece(arg3);
+        }
+        else if (game.isEnPassant(arg1, arg2) == -1) {
+          string arg3 = arg2;
+          arg3[1] = arg2[1] + 1;
+          board.removePiece(arg3);
+        }
+        board.getArr()[0]->setEnPassant({8, 8});
+        if (game.isSkipping(arg1, arg2) == 1) {
+          string arg3 = arg1;
+          arg3[1] = arg1[1] + 1;
+          board.getPiece(arg3)->setEnPassant(convertPosition(arg3));
+        } else if (game.isSkipping(arg1, arg2) == -1) {
+          string arg3 = arg1;
+          arg3[1] = arg1[1] - 1;
+          board.getPiece(arg3)->setEnPassant(convertPosition(arg3));
         }
         Piece* p = board.getPiece(arg1);
         board.removePiece(arg2);
