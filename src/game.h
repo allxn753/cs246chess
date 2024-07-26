@@ -42,11 +42,12 @@ class Game {
         void updateCheckmate();
         void updateStalemate();
         void resign();
+        void performMove(string arg1, string arg2, char defaultPromo = 'q');
 
         // Game Loop Methods
         bool validSetup();        
         void updateScore(Player*, Player*);
-        void updateGameState(Player*, Player*);
+        void updateGame(Player*, Player*);
         void gameLoop(Player*, Player*);
 
         // Move Methods

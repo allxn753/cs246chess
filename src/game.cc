@@ -10,7 +10,6 @@ bool Game::validMove(string pos1, string pos2) {
     if (coord1[0] < 0 || coord1[0] >= Board::WIDTH || coord1[1] < 0 || coord1[1] >= Board::HEIGHT ||
         coord2[0] < 0 || coord2[0] >= Board::WIDTH || coord2[1] < 0 || coord2[1] >= Board::HEIGHT) return false; // return false if out of bounds of the board
     if (coord1 == coord2) return false; // no piece can move onto itself
-
     char activePiece = theBoard->getPiece(coord1[0], coord1[1])->getChar();
     char destination = theBoard->getPiece(coord2[0], coord2[1])->getChar();
 
@@ -298,30 +297,6 @@ void Game::updateStalemate() {
     stalemated = false;
 }
 
-void Game::updateGameState(Player* white, Player* black) {
-    bool whiteTurn = (state == Game::WHITE_TURN);
-    updateCheck();
-    updateCheckmate();
-    updateStalemate();
-    updateScore(white, black);
-    if(resigned || checkmated) {
-        if (checkmated) {
-            cout << "Checkmate! ";
-        }
-        if (whiteTurn) cout << "Black";
-        else cout << "White";
-        cout << " wins!" << endl;
-        state = GAME_END;
-    } else if (stalemated) {
-        cout << "Stalemate!" << endl;
-        state = GAME_END;
-    }  else if (checked) {
-        if (whiteTurn) cout << "White";
-        else cout << "Black";
-        cout << " is in check." << endl;
-    }
-}
-
 void Game::updateScore(Player* white, Player* black) {    
     if ((resigned || checkmated) &&  state == Game::WHITE_TURN) black->addScore(1); 
     if ((resigned || checkmated) &&  state == Game::BLACK_TURN) white->addScore(1);
@@ -335,38 +310,111 @@ string Game::whoseTurn() {
     else return "Invalid Turn";
 }
 
-void Game::gameLoop(Player* white, Player* black) {
-    reset();
-    theBoard->display();
 
+void Game::updateGame(Player* white, Player* black) {
+    bool whiteTurn = (state == Game::WHITE_TURN);
+    updateCheck();
+    updateCheckmate();
+    updateStalemate();
+    updateScore(white, black);
+    if(resigned || checkmated) {
+        if (checkmated) {
+            std::cout << "Checkmate! ";
+        }
+        if (whiteTurn) std::cout << "Black";
+        else std::cout << "White";
+        std::cout << " wins!" << endl;
+        state = GAME_END;
+    } else if (stalemated) {
+        std::cout << "Stalemate!" << endl;
+        state = GAME_END;
+    }  else if (checked) {
+        if (whiteTurn) std::cout << "White";
+        else std::cout << "Black";
+        std::cout << " is in check." << endl;
+    }
+}
+
+void Game::performMove(string arg1, string arg2, char promo) {
+    if (isCastling(arg1, arg2) == 1) {
+        string arg3 = arg1;
+        arg3[0] = 'h';
+        Piece* r = getBoard()->getPiece(arg3);
+        arg3[0] = arg1[0] + 1;
+        r->move(arg3);
+    } else if (isCastling(arg1, arg2) == -1) {
+        string arg3 = arg1;
+        arg3[0] = 'a';
+        Piece* r = getBoard()->getPiece(arg3);
+        arg3[0] = arg1[0] - 1;
+        r->move(arg3);
+    }
+    if (isEnPassant(arg1, arg2) == 1) {
+        string arg3 = arg2;
+        arg3[1] = arg2[1] - 1;
+        getBoard()->removePiece(arg3);
+    }
+    else if (isEnPassant(arg1, arg2) == -1) {
+        string arg3 = arg2;
+        arg3[1] = arg2[1] + 1;
+        getBoard()->removePiece(arg3);
+    }
+    getBoard()->getArr()[0]->setEnPassant({8, 8});
+    if (isSkipping(arg1, arg2) == 1) {
+        string arg3 = arg1;
+        arg3[1] = arg1[1] + 1;
+        getBoard()->getPiece(arg3)->setEnPassant(convertPosition(arg3));
+    } else if (isSkipping(arg1, arg2) == -1) {
+        string arg3 = arg1;
+        arg3[1] = arg1[1] - 1;
+        getBoard()->getPiece(arg3)->setEnPassant(convertPosition(arg3));
+    }
+    if (isPromoting(arg1, arg2)) {        
+        if (promo == 'q' || promo == 'r'|| promo == 'b' || promo == 'n') { // for computer players
+            getBoard()->removePiece(arg2);
+                if (isupper(getBoard()->getPiece(arg1)->getChar())) {
+                    getBoard()->addPiece(toupper(promo), arg2);
+                } else {
+                    getBoard()->addPiece(promo, arg2);
+                }
+            getBoard()->removePiece(arg1);
+        } else {
+            while (cin >> promo) {
+                cout << "Pawn promotion! Choose a piece: (q, r, b, n)" << endl;
+                promo = tolower(promo);
+                if (promo != 'q' && promo != 'r' && promo != 'b' && promo != 'n') {
+                    cout << "Invalid promotion" << endl;
+                } else {
+                    getBoard()->removePiece(arg2);
+                    if (isupper(getBoard()->getPiece(arg1)->getChar())) {
+                        getBoard()->addPiece(toupper(promo), arg2);
+                    } else {
+                        getBoard()->addPiece(promo, arg2);
+                    }
+                getBoard()->removePiece(arg1);
+                }
+            } // while
+        }       
+    } else {
+        Piece* p = getBoard()->getPiece(arg1);
+        getBoard()->removePiece(arg2);
+        p->move(arg2);
+    }
+    nextTurn();  
+    getBoard()->display(); 
+}
+
+void Game::gameLoop(Player* white, Player* black) {
+    theBoard->display();
     while(getState() != GAME_END) {
         if (getState() == WHITE_TURN) {
             white->makeMove();
         }
-
         else if (getState() == BLACK_TURN) {
             black->makeMove();
         }
-
-        //Checkmate
-        if (getCheckmated()) {
-            if (whoseTurn() == "white") {
-                cout << "Checkmate! Black wins!" << endl;
-                black->addScore(1);
-            } else {
-                cout << "Checkmate! White wins!" << endl;
-                white->addScore(1);
-            }
-            reset();
-        }
-        // Check
-        if (getCheck() && whoseTurn() == "white") {
-            cout << "White is in check." << endl;
-        } else if (getCheck()) cout << "Black is in check." << endl;
-
-    }
-    
-    cout << "Final Score:" << endl << "White: " << white->getScore() << endl << "Black: " << black->getScore() << endl;
+        updateGame(white, black);
+    }    
 }
 
 void Game::reset(bool blank) {
