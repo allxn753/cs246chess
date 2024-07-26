@@ -26,7 +26,11 @@ void Computer::makeMove() const {
         int xPos = piece->getX();
         int yPos = piece->getY();
 
+        cout << convertPosition(xPos, yPos);
+        cout << convertPosition(arr[0]->getX(), arr[0]->getY());
+
         while (success) {
+            cout << "dwq";
             for (int i = 0; i < numPieces; i++) {
                 if (game->validMove(convertPosition(xPos, yPos), convertPosition(arr[i]->getX(), arr[i]->getY()))) {
                     piece->move(arr[i]->getX(), arr[i]->getY());

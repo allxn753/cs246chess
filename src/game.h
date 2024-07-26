@@ -15,7 +15,7 @@ class Game {
         gameState state;
         bool check = false;
     public:        
-        Game();
+        Game() {};
         Game(Board *);
         Board* getBoard() { return theBoard; };
         void reset();

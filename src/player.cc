@@ -5,3 +5,5 @@ Player::Player(string playerColour, Game* game) : playerColour{playerColour}, ga
 Board* Player::getBoard() {
     return game->getBoard();
 }
+
+Player::~Player() {}
