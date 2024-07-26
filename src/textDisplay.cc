@@ -16,5 +16,5 @@ void TextDisplay::notify() {
         cout << endl;
     }
 
-    cout << "  abcdefgh" << endl << endl; // could change to be dynamic with board size.
+    cout << "  abcdefgh" << endl; // could change to be dynamic with board size.
 }
