@@ -28,26 +28,22 @@ void Computer::makeMove() const {
         bool success = false;
         Decorator* piece = getRandomPiece(playerColour, game, numPieces);
 
-        cout << convertPosition(0, 6) << endl;
-        cout << convertPosition(0, 5) << endl;
-        cout << game->validMove(convertPosition(0, 6), convertPosition(0, 5)) << endl;
-
-        while (success) {
+        while (!success) {
 
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
                     if (game->validMove(convertPosition(piece->getX(), piece->getY()), convertPosition(i, j))) {
                         piece->move(i, j);
                         success = true;
-                        cout << "n";
                         break;
                     }
 
-                    if (success) {cout << "a"; break;}
+                    if (success) {break;}
                 }
 
-                if (success) {cout << "b"; break;}
+                if (success) {break;}
             }
+            piece = getRandomPiece(playerColour, game, numPieces);
         }
 
     }
