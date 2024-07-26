@@ -165,7 +165,7 @@ void Game::updateCheck() {
 } // isInCheck()
 
 
-bool Game::isThreatened(string pos) {
+bool Game::isThreatened(string pos) { // Barely more efficient than just iterating over entire board. 64 vs. like 30 comparisons...
     vector<int> coord = convertPosition(pos);
     string from;    
     for(int i = 0; i < Board::WIDTH; ++i) { // check within row
@@ -191,7 +191,6 @@ bool Game::isThreatened(string pos) {
         if(validMove(convertPosition(coord[0] + move[0], coord[1] + move[1]), pos)) return true;
         if(validMove(convertPosition(coord[0] + move[1], coord[1] + move[0]), pos)) return true;
     }
-    
     return false;
 }
 
