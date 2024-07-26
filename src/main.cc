@@ -50,7 +50,7 @@ int main() {
       }
 
       else if (arg1 == "human" && arg2.substr(0, arg2.size() - 3) == "computer") {
-        //Player* black = new Computer("black", game, stoi(arg2.substr(9, arg2.size() - 10)));
+        //Player* black = new Computer("black", &game, stoi(arg2.substr(9, arg2.size() - 10)));
       }
 
       else if (arg2 == "human" && arg1.substr(0, arg1.size() - 3) == "computer") {

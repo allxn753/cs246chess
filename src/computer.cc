@@ -48,28 +48,6 @@ void Computer::makeMove() const {
 
                 if (success) {cout << "b"; break;}
             }
-
-        Decorator* piece;
-        int xPos, yPos;
-
-
-        while (!success) {            
-            piece = getRandomPiece(playerColour, game, numPieces);
-            xPos = piece->getX();
-            yPos = piece->getY();
-            cout << "Trying to move new Piece: " << piece->getChar() << " " << xPos << "," << yPos << endl;
-            for (int i = 0; i < Board::WIDTH; ++i) {
-                for (int j = 0; j < Board::HEIGHT; ++j) {
-                    cerr << convertPosition(i, j) << endl;
-                    if (game->validMove(convertPosition(xPos, yPos), convertPosition(i, j))) {
-                        cerr << "Found Move" << endl;
-                        piece->move(i, j);
-                        success = true;
-                        break;
-                    }
-                }                
-            }
-            
         }
 
     }
