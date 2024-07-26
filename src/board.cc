@@ -9,12 +9,12 @@ void Board::addPiece(char type, string pos) {
     Decorator * d;
     char p = tolower(type);
     switch(p){
-        case 'r': d = new Rook(pieces, coord[0], coord[1], 5, isupper(type) ? "black" : "white"); break;
-        case 'n': d = new Knight(pieces, coord[0], coord[1], 3, isupper(type) ? "black" : "white"); break;
-        case 'b': d = new Bishop(pieces, coord[0], coord[1], 3, isupper(type) ? "black" : "white"); break;
-        case 'q': d = new Queen(pieces, coord[0], coord[1], 9, isupper(type) ? "black" : "white"); break;
-        case 'k': d = new King(pieces, coord[0], coord[1], 100, isupper(type) ? "black" : "white"); break;
-        case 'p': d = new Pawn(pieces, coord[0], coord[1], 1, isupper(type) ? "black" : "white"); break;
+        case 'r': d = new Rook(pieces, coord[0], coord[1], 5, islower(type) ? "black" : "white"); break;
+        case 'n': d = new Knight(pieces, coord[0], coord[1], 3, islower(type) ? "black" : "white"); break;
+        case 'b': d = new Bishop(pieces, coord[0], coord[1], 3, islower(type) ? "black" : "white"); break;
+        case 'q': d = new Queen(pieces, coord[0], coord[1], 9, islower(type) ? "black" : "white"); break;
+        case 'k': d = new King(pieces, coord[0], coord[1], 100, islower(type) ? "black" : "white"); break;
+        case 'p': d = new Pawn(pieces, coord[0], coord[1], 1, islower(type) ? "black" : "white"); break;
     }
     arr.emplace_back(d);
     pieces = d;
