@@ -23,7 +23,7 @@ bool Game::validMove(string pos1, string pos2) {
     int dY = coord2[1] - coord1[1];
     switch (tolower(activePiece)) {
         case 'k':
-            cerr << "King Move" << endl;
+            // cerr << "King Move" << endl;
             if (!theBoard->getPiece(coord1[0], coord1[1])->getHasMoved()) {
                 if (dY == 0) {
                     if (dX == 2) {
@@ -40,7 +40,7 @@ bool Game::validMove(string pos1, string pos2) {
             return true;
 
         case 'q':
-            cerr << "Queen Move" << endl;
+            // cerr << "Queen Move" << endl;
             if (dX != 0 && dY != 0) {
                 if (abs(dX) != abs(dY)) return false;
             }
@@ -48,24 +48,24 @@ bool Game::validMove(string pos1, string pos2) {
             return true;        
 
         case 'r':
-            cerr << "Rook Move" << endl;
+            // cerr << "Rook Move" << endl;
             if (dX != 0 && dY != 0) return false;
             if (isPathObstructed(coord1, dX, dY)) return false;
             return true;
 
         case 'b':
-            cerr << "Bishop Move" << endl;
+            // cerr << "Bishop Move" << endl;
             if (abs(dX) != abs(dY)) return false;
             if (isPathObstructed(coord1, dX, dY)) return false;
             return true;
 
         case 'n':
-            cerr << "Knight Move" << endl;
+            // cerr << "Knight Move" << endl;
             if ((abs(dX) == 2 && abs(dY) == 1) || (abs(dX) == 1 && abs(dY) == 2)) return true;
             return false;
 
         case 'p':
-            cerr << "Pawn Move" << endl;
+            // cerr << "Pawn Move" << endl;
             int yMult;
             if (isupper(activePiece)) yMult = 1;
             else yMult = -1;
@@ -134,16 +134,22 @@ bool Game::isCheckmate() {
     if (check == false) return false; // King must be threatened and no escape moves.
     string original_pos, from, to;
     vector<string> moves;
-    // for () {
-    //     original_pos = convertPosition(p->getX(), p->getY());
-    //     moves = validMoves(original_pos);
-    //     for (auto m: moves) {
-    //         p->move(m);
-
-    //     }
-    // }
+    for (auto p: theBoard->getArr()) {
+        original_pos = convertPosition(p->getX(), p->getY());
+        moves = validMoves(original_pos);
+        for (auto m: moves) {
+            p->move(m);
+            updateCheck();
+            if (!check) { // Found potential move.
+                p->move(original_pos);
+                check = true;
+                return false;
+            }
+        }
+        p->move(original_pos);
+    }
     check = true;
-    return false;
+    return true;
 } // isInCheck()
 
 
