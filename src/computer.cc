@@ -6,8 +6,10 @@
 Decorator* getRandomPiece(string playerColour, Game* game, int numPieces) {    
     srand (time(NULL));    
     int x = rand() % numPieces;
+    int count = 0;
     while (game->getBoard()->getArr()[x]->getColour() != playerColour) {
-        x = rand() % numPieces;
+        x = (rand() + count) % numPieces;
+        ++count;
     }
     return game->getBoard()->getArr()[x];
 
@@ -16,7 +18,12 @@ Decorator* getRandomPiece(string playerColour, Game* game, int numPieces) {
 Computer::Computer(string playerColour, Game* game, int level) : Player{playerColour, game}, level{level} {}
 
 void Computer::makeMove() const {
-
+    string command;
+    cin >> command;
+    if (command != "move") {
+        cerr << "Invalid Command" << endl;
+        makeMove();
+    }
     if (level == 1) {
         int numPieces = game->getBoard()->getNumPieces();
         vector<Decorator*> arr = game->getBoard()->getArr();
@@ -30,18 +37,13 @@ void Computer::makeMove() const {
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
                     arg2 = convertPosition(i, j);
-                    // cerr << arg1 << " " << arg2 << endl;
                     if (game->validMove(arg1, arg2)) {
-                        if (tolower(game->getBoard()->getPiece(arg1)->getChar()) == 'k' || tolower(game->getBoard()->getPiece(arg1)->getChar()) == 'K')  {
-                            cerr << "King Move" << endl;
-                        }
+                        cerr << arg1 << " " << arg2 << endl;
                         // Is player in check after move
                         Piece * p1 = game->getBoard()->getPiece(arg1);
                         Piece * p2 = game->getBoard()->getPiece(arg2);
-                        if (p2->getChar() != ' ' && p2->getChar() != '_') {
-                            p2->move(-1, -1); // "store" p2 on an unused tile
-                        }
                         p1->move(arg2);
+                        p2->move(-1, -1);
                         game->updateCheck();
                         p1->move(arg1);
                         p2->move(arg2);
