@@ -13,6 +13,7 @@ class Decorator: public Piece {
         string colour;
         char type;
         bool hasMoved = false;
+        vector<int> enPassant = {8, 8};
     public:
         Decorator(Piece* piece, int, int, unsigned int, string);
         virtual ~Decorator();
@@ -24,6 +25,8 @@ class Decorator: public Piece {
         virtual void move(int x, int y) override {this->x = x; this->y = y;}
         virtual void move(string) override;
         virtual bool getHasMoved() {return hasMoved;}
+        void setEnPassant(vector<int> coord) override {enPassant = {8, 8};}
+        vector<int> getEnPassant() override {return enPassant;}
         virtual string getColour() {return colour;}
         
 };
