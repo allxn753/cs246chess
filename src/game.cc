@@ -130,12 +130,12 @@ bool Game::isInCheck() {
     else if (state == BLACK_TURN) king = 'k';
     for(int i = 0; i < theBoard->arr.size(); ++i) {
         curr = theBoard->arr[i];
-        if(curr->getChar() == king) {
+        if(curr->getChar() == king) { // found king
             pos = convertPosition(curr->getX(), curr->getY());
             return isThreatened(pos);
-        }
+        } // found king
     } // for
-}
+} // isInCheck()
 
 
 bool Game::isThreatened(string pos) {
