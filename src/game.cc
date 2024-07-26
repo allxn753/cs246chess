@@ -28,10 +28,10 @@ bool Game::validMove(string pos1, string pos2) {
                 if (dY == 0) {
                     if (dX == 2) {
                         if (!theBoard->getPiece(coord1[0], 7)->getHasMoved() && tolower(theBoard->getPiece(7, coord1[1])->getChar()) == 'r' &&
-                            !isPathObstructed(coord1, 7 - coord1[0], dY)) return true;
+                            !isPathObstructed(coord1, 7 - coord1[0], dY) && !check) return true;
                     } else if (dX == -2) {
                         if (!theBoard->getPiece(coord1[0], 0)->getHasMoved() && tolower(theBoard->getPiece(0, coord1[1])->getChar()) == 'r' &&
-                            !isPathObstructed(coord1, 0 - coord1[0], dY)) return true;
+                            !isPathObstructed(coord1, 0 - coord1[0], dY) && !check) return true;
                     }
                 }
             }
@@ -82,7 +82,6 @@ bool Game::validMove(string pos1, string pos2) {
                 theBoard->getPiece(coord2[0], coord2[1])->getEnPassant() != coord2) return false;
             return true;
     }
-
     return false;
 }
 
@@ -134,7 +133,9 @@ bool Game::isCheckmate() {
     if (check == false) return false; // King must be threatened and no escape moves.
     string original_pos, from, to;
     vector<string> moves;
-    for (auto p: theBoard->getArr()) {
+    Decorator* p;
+    for (int i = theBoard->getArr().size() - 1; i >= 0; --i) {
+        p = theBoard->getArr()[i];
         original_pos = convertPosition(p->getX(), p->getY());
         moves = validMoves(original_pos);
         for (auto m: moves) {

@@ -147,6 +147,10 @@ int main() {
       // move pieces on the board
       cin >> arg1 >> arg2; // >> piece; // start end promotion (e7 e8 Q)
       if(game.validMove(arg1, arg2)) {
+        // Check if move escapes check
+        if (game.getCheck()) {
+          
+        }
         if (game.isCastling(arg1, arg2) == 1) {
           string arg3 = arg1;
           arg3[0] = 'h';
