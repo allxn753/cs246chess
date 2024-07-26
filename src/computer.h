@@ -6,10 +6,10 @@
 
 class Computer : public Player {
     protected:
-        unsigned int level = 1;
+        int level = 1;
     
     public:
-        Computer(string playerColour, Game* game, unsigned int level);
+        Computer(string playerColour, Game* game, int level);
         void makeMove() const override;
 };
 
