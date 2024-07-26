@@ -8,7 +8,7 @@ void Board::addPiece(char type, string pos) {
     vector<int> coord = convertPosition(pos);
     Decorator * d;
     char p = tolower(type);
-    switch(p){
+    switch(p) {
         case 'r': d = new Rook(pieces, coord[0], coord[1], 5, islower(type) ? "black" : "white"); break;
         case 'n': d = new Knight(pieces, coord[0], coord[1], 3, islower(type) ? "black" : "white"); break;
         case 'b': d = new Bishop(pieces, coord[0], coord[1], 3, islower(type) ? "black" : "white"); break;
