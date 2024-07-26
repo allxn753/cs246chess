@@ -15,16 +15,16 @@
 
 class Piece;
 
+class Game;
 
 using namespace std;
 
 class Board : public Subject {
+    friend Game;
     protected:
         Piece* pieces;
         int numPieces  = 0;
         vector<Decorator*> arr= {};
-
-
     public:
         inline static int HEIGHT = 8;
         inline static int WIDTH = 8;
@@ -41,7 +41,6 @@ class Board : public Subject {
         void print(string pos);
         void wipe();
         ~Board();
-
 };
 
 

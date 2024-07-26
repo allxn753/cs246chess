@@ -64,6 +64,7 @@ int main() {
       } else { cout << "Invalid move" << endl; }
     }    
     else if (command == "setup") {
+      board.wipe();
       while (cin >> command) {
         if (command == "+") {
           cin >> piece >> arg2; // piece end (K e1)
@@ -78,20 +79,14 @@ int main() {
         } else if (command == "p") {
           cin >> arg1;
           board.print(arg1);
-        }
-        
-        else if (command == "done") {
+        } else if (command == "done") {
           break;
         } else { cout << "Invalid command" << endl; }
       }
     } // setup mode
-    else if (command == "wipe") {
-      game.getBoard()->wipe();
-      board.display();
-    }
     else { cout << "Invalid command" << endl; }
 
   } // while
-  // output score!!
+  // output score
   board.detach(textDisplay);
 } // main
