@@ -7,7 +7,3 @@ This is our final project for the course: CS246 - Object Oriented Programming. T
 - Human vs. Human
 - Human vs. Computer
 - Computer vs. Computer
-
-Where the computer has 3 different levels of difficulty.
-
-Documentation:
